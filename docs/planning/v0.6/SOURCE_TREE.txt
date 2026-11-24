@@ -1,0 +1,36 @@
+Probability Distribution Models
+  Discrete Distributions: Bernoulli; Binomial; Categorical; Multinomial; Poisson; Geometric
+  Continuous Distributions: Gaussian (Normal); Uniform; Exponential; Gamma; Beta; Dirichlet; Weibull; Laplace; Student's t
+  Multivariate Distributions: Multivariate Gaussian; Multivariate Student's t; Copula Models
+  Mixture Models: Gaussian Mixture Model (GMM); Bernoulli Mixture Model; Poisson Mixture Model; Student's t Mixture Model; Mixture of Experts
+Probabilistic Graphical Models (PGM)
+  Directed Graphical Models: Bayesian Networks; Naive Bayes; Hidden Markov Models (HMM); Dynamic Bayesian Networks; Deep Belief Networks
+  Undirected Graphical Models: Markov Random Fields (MRF); Conditional Random Fields (CRF); Ising Models; Boltzmann Machines; Restricted Boltzmann Machines; Deep Boltzmann Machines
+  Factor Graph Representations
+Probabilistic Latent Variable Models
+  Discrete Latent Variable Models: Finite Mixture Models; Hidden Markov Models
+  Continuous Latent Variable Models: Factor Analysis; Probabilistic PCA; Probabilistic ICA; Gaussian Process Latent Models
+  Topic Models: Probabilistic LSA; Latent Dirichlet Allocation; Hierarchical Topic Models
+  Deep Latent Variable Models: Variational Autoencoder (VAE); Conditional VAE; Beta-VAE; Hierarchical VAE; Deep Latent Gaussian Models; Deep Belief Networks
+Bayesian Models
+  Bayesian Parametric Models: Bayesian Linear Regression; Bayesian Logistic Regression; Bayesian Mixture Models; Bayesian Hierarchical Models
+  Bayesian Nonparametric Models: Dirichlet Process; Dirichlet Process Mixture Model; Gaussian Process; Indian Buffet Process; Pitman-Yor Process
+  Bayesian Deep Learning: Bayesian Neural Networks; Deep Gaussian Processes; Bayesian Deep Generative Models
+Sequential Probabilistic Models
+  Markov Models: Markov Chains; Hidden Markov Models; Higher-Order Markov Models
+  Autoregressive Models: Statistical AR Models; ARMA; ARIMA; SARIMA; NADE; MADE; PixelCNN; PixelRNN; Autoregressive Transformers
+  Probabilistic State-Space Models: Linear Gaussian State-Space; Nonlinear State-Space; Switching State-Space; Deep State-Space Models
+Nonparametric Density Models
+  Kernel Density Estimation (KDE); Histogram Density Estimation; KNN Density Estimation; Dirichlet Process Mixtures
+Probabilistic Discriminative Models
+  Logistic Regression; Softmax Regression; Probit Regression; Conditional Random Fields; Gaussian Process Classification; Probabilistic Neural Classifiers
+Deep Probabilistic Generative Models
+  Neural Autoregressive Models: NADE; MADE; PixelCNN; GPT-style Models
+  Normalizing Flow Models: NICE; RealNVP; Glow; MAF; IAF; Neural Spline Flows; Continuous Normalizing Flows
+  Variational Latent Variable Models: VAE; CVAE; Hierarchical VAE
+  Probabilistic Energy-Based Models: Boltzmann Machines; RBM; Deep Energy-Based Models
+  Diffusion and Score-Based Models: DDPM; Score-Based SDE; Latent Diffusion; Discrete Diffusion
+  Implicit Probabilistic Generators: GAN; Conditional GAN; Wasserstein GAN; Other Implicit Samplers
+  Probability Transport Models: Flow Matching; Rectified Flow; Schrodinger Bridge Models
+Stochastic Process Models
+  Gaussian Processes; Markov Processes; Poisson Processes; Wiener Processes; Levy Processes; Stochastic Differential Equations; Point Process Models

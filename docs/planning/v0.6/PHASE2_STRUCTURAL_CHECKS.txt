@@ -1,0 +1,7 @@
+PASS: MODEL_SCOPE_BASELINE.json byte-identical to v0.4; SHA256 e8ea11be46cb6c6d5907a19ea4ae2517a4e52413c50bd5bcf5a90067dccb6520
+PASS: SOURCE_TREE.txt byte-identical to v0.4; SHA256 f0e3e906ad0425fca06c54385544d990223d03d303becd2f202514171844a51a
+PASS: TAXONOMY_PROJECTION_CANDIDATE.json byte-identical to v0.4; SHA256 344dad29f17d86b3a5a838eaae1c19b0abf78ffa2df06dbe98f98a56b4708c1a
+PASS: 9 major categories, 32 unique category IDs, 123 exact placement triples and 109 candidate canonical modules reconciled.
+PASS: 24 unique confirmed decision rows; all six VD selections exact.
+PASS: implementation HOLD retained in controlling handoff, agent instructions and decision log.
+NOT RUN: runtime, scientific, accessibility, security, dependency or usability testing.

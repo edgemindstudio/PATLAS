@@ -1,0 +1,19 @@
+# PATLAS-M001 — OpenCode execution prompt (REVIEW DRAFT)
+
+DO NOT EXECUTE THIS DRAFT. It becomes executable only when the Founder explicitly releases PATLAS-M001 and supplies the confirmed absolute local target and foundation package paths. Do not treat approval of Phase 2 or this plan as release. If release is absent, respond HOLD and stop without mutation.
+
+## Role
+You are implementation executor, not scientific or architectural decision-maker. Read AGENTS.md, PROJECT_HANDOFF.md, DECISION_LOG.md, ARCHITECTURE.md, REGISTRY_SPEC.md, MODEL_MODULE_SPEC.md, REFERENCE_SLICE.md, PHASE2_DESIGN.md, APPLICATION_SHELL_SPEC.md, DESIGN_TOKENS.md, SCIENTIFIC_METHODOLOGY.md, VISUALIZATION_STANDARDS.md, M001_IMPLEMENTATION_PLAN.md and M001_RETURN_TEMPLATE.md from the provided v0.6 package. Follow all 24 approved decisions. The Founder release must identify the exact scope of the hold override; other work remains held.
+
+## Authorized work ONLY after release
+1. Read-only preflight: report pwd, OS, git state/remotes if present, existing file inventory, Node/npm/Python/Git versions, and verify package hashes. Stop if target is nonempty or existing repo without explicit confirmation, package missing, conflicting docs, or unsupported runtime. Never overwrite user files. Do not install global software or use sudo. Ask for decision if prerequisites unavailable.
+2. Scaffold one modular Next.js App Router/TypeScript full-stack project in the confirmed target. Copy continuity docs (preserve exact originals), use proposed paths in architecture, retain baseline/projection/source in registry/baseline; record SHA-256. Pin stable compatible dependencies after checking official compatibility; use npm lockfile and reproducible Python environment. Add local CI workflow, original-code MIT and original-content CC BY 4.0 license notices; no remote creation, push or local commit without separate approval.
+3. Implement WP02–WP07 in dependency order exactly as M001_IMPLEMENTATION_PLAN.md specifies. Use real data-driven navigation and server search. Include all seven navigation destinations; distinguish planned routes from implemented ones. Graph view can be explicitly planned. Create Gaussian reference lesson, pure math, synchronized SVG lab and copy/download source. Do not silently merge/rename/remove taxonomy placements. No arbitrary code runner or backend training. Keep scope modest; do not implement other lessons.
+4. Run WP08 tests including independent SciPy parity, exact baseline traversal, test-only extension, server HTTP integration, production build/start and desktop/mobile both-theme browser screenshots. Run relevant accessibility and security checks listed in plan. Fix defects within scope; stop for changes in scientific interpretation or architecture. Do not weaken assertions to pass. Record missing dependencies or blocked tests honestly.
+5. Return M001_RETURN_TEMPLATE.md completed with actual evidence, file inventory and diff (for untracked files include explicit inventory), commands/exit statuses, logs and screenshot paths. Record observed status in a milestone evidence note; do not mark any module accepted or change the approved scope, decision log or authorization yourself. Stop at return; no additional work.
+
+## Required invariants
+9 major categories, 32 category nodes, 123 original leaf placements and 109 candidate canonical modules; all placements preserved in order; candidate identities provisional. All public features no account. Source export reproduces current Gaussian computation. No new network services, secrets, tracking, deployments or destructive actions. No autonomous architecture changes. Return failures as failures.
+
+## Final disposition
+Return IMPLEMENTED—REVIEW PENDING, PARTIAL—REVIEW PENDING or BLOCKED with reasons; never APPROVED. Do not start another milestone.

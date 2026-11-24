@@ -1,0 +1,6 @@
+MODEL_SCOPE_BASELINE.json SHA256 e8ea11be46cb6c6d5907a19ea4ae2517a4e52413c50bd5bcf5a90067dccb6520 unchanged
+SOURCE_TREE.txt SHA256 f0e3e906ad0425fca06c54385544d990223d03d303becd2f202514171844a51a unchanged
+TAXONOMY_PROJECTION_CANDIDATE.json SHA256 344dad29f17d86b3a5a838eaae1c19b0abf78ffa2df06dbe98f98a56b4708c1a unchanged
+Projection counts: 9 major, 32 categories, 123 placements, 109 candidate modules.
+24 unique decision IDs.
+Documentation only; no runtime or scientific tests performed.
