@@ -27,13 +27,10 @@ M001_APPLICATION_IMPLEMENTATION_AUTHORIZED=NO
 
 ## Next actions
 
-1. Verify imported planning files against archive.
-2. Review and commit the planning baseline.
-3. Create private edgemindstudio/PATLAS repository.
-4. Synchronize local and remote main branches.
-5. Establish ChatGPT GitHub repository access.
-6. Obtain explicit M001 execution authorization.
-7. Release the bounded OpenCode execution prompt.
+1. Resolve ChatGPT GitHub repository access.
+2. Review and accept the final preparation checkpoint.
+3. Obtain explicit M001 execution authorization.
+4. Release the bounded OpenCode execution prompt.
 
 ## Mandatory continuity rules
 
