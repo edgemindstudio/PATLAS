@@ -50,9 +50,20 @@ visibility decision only.
 - Phase 2 visual design: APPROVED
 - M001 implementation plan v0.6: APPROVED
 
+## PATLAS-M001-REL-001 — Founder release
+
+Status: FOUNDER APPROVED
+Date: 2026-11-24
+
+- Preparation checkpoint formally accepted.
+- Bounded M001 implementation authorized.
+- Implementation branch: engineering/m001-foundation.
+- Scope: approved v0.6 WP01-WP08.
+- Controlling release: M001_EXECUTION_AUTHORIZATION.md.
+- No scope expansion, deployment or automatic merge.
+
 ## Execution boundary
 
-M001_APPLICATION_IMPLEMENTATION_AUTHORIZED=NO
+M001_APPLICATION_IMPLEMENTATION_AUTHORIZED=YES
 
-Application implementation requires a separate
-explicit Founder authorization.
+Implementation is authorized only within PATLAS-M001-REL-001.

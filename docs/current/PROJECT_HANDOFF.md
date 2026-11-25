@@ -8,7 +8,8 @@ PROJECT=PATLAS
 PLANNING_BASELINE=v0.6
 CURRENT_MILESTONE=PATLAS-M001
 M001_PLAN_APPROVED=YES
-M001_APPLICATION_IMPLEMENTATION_AUTHORIZED=NO
+M001_APPLICATION_IMPLEMENTATION_AUTHORIZED=YES
+M001_IMPLEMENTATION_STATUS=AUTHORIZED_NOT_STARTED
 
 ## Completed
 
@@ -34,13 +35,13 @@ M001_APPLICATION_IMPLEMENTATION_AUTHORIZED=NO
 - Commit comparison verified.
 - Ebonkie GitHub connection preserved.
 - Preparation checkpoint engineering verification complete.
-- Formal Founder acceptance pending.
+- Formal Founder acceptance recorded under PATLAS-M001-REL-001.
 
 ## Next actions
 
-1. Obtain formal Founder acceptance of the preparation checkpoint.
-2. Obtain explicit M001 execution authorization.
-3. Release the bounded OpenCode execution prompt.
+1. Read M001_EXECUTION_AUTHORIZATION.md.
+2. Execute the bounded M001 prompt on engineering/m001-foundation.
+3. Return implementation evidence for independent Lead review.
 
 ## Mandatory continuity rules
 
@@ -58,7 +59,6 @@ ChatGPT leads architecture, scientific methodology,
 implementation planning and evidence review.
 OpenCode executes bounded implementation tasks.
 
-Do not initialize the application, install Next.js,
-implement scientific models or execute the M001
-prompt until explicit implementation authorization
-has been issued.
+The preparation HOLD is superseded only for the
+bounded M001 scope in PATLAS-M001-REL-001.
+No deployment, automatic merge or scope expansion.

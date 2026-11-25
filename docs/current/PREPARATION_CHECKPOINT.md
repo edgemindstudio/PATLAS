@@ -12,7 +12,8 @@ REMOTE_REPOSITORY_ESTABLISHED=YES
 REMOTE_BASELINE_SYNCHRONIZED=YES
 CHATGPT_REPOSITORY_ACCESS=VERIFIED
 M001_PLAN_APPROVED=YES
-M001_APPLICATION_IMPLEMENTATION_AUTHORIZED=NO
+M001_APPLICATION_IMPLEMENTATION_AUTHORIZED=YES
+FOUNDER_CHECKPOINT_ACCEPTANCE=ACCEPTED
 
 ## Repository identity
 
@@ -62,10 +63,11 @@ The previous HTTP 404 limitation is resolved.
 
 ## Remaining work
 
-1. Obtain formal Founder acceptance of this checkpoint.
-2. Obtain explicit Founder execution authorization.
-3. Release the approved bounded M001 prompt.
+1. Founder checkpoint acceptance: COMPLETE.
+2. Bounded M001 authorization: COMPLETE.
+3. Execute the authorized M001 milestone and return evidence.
 
-No application implementation is authorized.
+Application implementation is authorized only under
+PATLAS-M001-REL-001 and has not yet started.
 No scientific module has been accepted.
 No application tests have been executed.

@@ -15,7 +15,17 @@ Before performing any work, read:
 The approved historical baseline is preserved
 under docs/planning/v0.6/.
 
-M001_APPLICATION_IMPLEMENTATION_AUTHORIZED=NO
+M001_APPLICATION_IMPLEMENTATION_AUTHORIZED=YES
+
+## Active bounded release
+
+PATLAS-M001-REL-001 is the controlling Founder release.
+
+Read docs/current/M001_EXECUTION_AUTHORIZATION.md.
+
+The historical HOLD above is overridden exclusively
+for the approved M001 work packages on the authorized
+implementation branch. All other restrictions remain.
 
 Do not treat approval of an implementation plan
 as authorization to execute that plan.

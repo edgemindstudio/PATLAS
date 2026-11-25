@@ -75,4 +75,5 @@ Next.js dependencies have not been installed.
 Application, scientific and accessibility tests
 have not been executed.
 
-M001_APPLICATION_IMPLEMENTATION_AUTHORIZED=NO
+M001_APPLICATION_IMPLEMENTATION_AUTHORIZED=YES
+M001_RELEASE_REFERENCE=PATLAS-M001-REL-001
