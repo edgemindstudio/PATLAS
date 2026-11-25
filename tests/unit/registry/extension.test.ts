@@ -10,9 +10,19 @@ describe("additive registry extension", () => {
 
   it("adds exactly one synthetic category, module and placement", () => {
     expect(extended.hasExtensions).toBe(true);
-    expect(extended.counts.categoryNodes).toBe(productionRegistry.counts.categoryNodes + 1);
-    expect(extended.counts.canonicalModules).toBe(productionRegistry.counts.canonicalModules + 1);
-    expect(extended.counts.leafPlacements).toBe(productionRegistry.counts.leafPlacements + 1);
+    // Explicit all-four-count assertions required by PATLAS-M001-COR-001 RF-002.
+    expect(extended.counts).toEqual({
+      majorCategories: 9,
+      categoryNodes: 33,
+      leafPlacements: 124,
+      canonicalModules: 110,
+    });
+    expect(productionRegistry.counts).toEqual({
+      majorCategories: 9,
+      categoryNodes: 32,
+      leafPlacements: 123,
+      canonicalModules: 109,
+    });
     expect(findCategory(extended, "test-only-synthetic-branch")?.path.map((p) => p.label)).toEqual([
       "Probability Distribution Models",
       "Test-Only Synthetic Branch",

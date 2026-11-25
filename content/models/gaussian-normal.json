@@ -6,13 +6,17 @@
   "status": "partial",
   "statusNote": "Reference slice implemented and locally verified. Independent scientific and educational review and Founder acceptance are pending, so this module is not accepted.",
   "summary": "A continuous, symmetric, two-parameter distribution on the real line, used as the default model for measurement noise and as a building block for many larger probabilistic models.",
-  "aliases": ["Gaussian", "Normal distribution", "Normal"],
+  "aliases": [
+    "Gaussian",
+    "Normal distribution",
+    "Normal"
+  ],
   "labId": "gaussian-normal",
   "sections": [
     {
       "id": "definition",
       "title": "Plain-language definition",
-      "markdown": "The **Gaussian distribution** — also called the **normal distribution** — is a continuous probability distribution on the whole real line. It is fixed by two numbers: a location parameter **μ** (the mean) and a scale parameter **σ > 0** (the standard deviation).\n\nIts probability *density* is a symmetric bell centred at μ: values near μ are more plausible than values far away, and the curve falls off smoothly in both directions. Because X is continuous, the probability of any exact value is zero. We work with density, and probabilities come from areas under the curve.\n\nA random variable X with this distribution is written X ~ N(μ, σ²). The second parameter in that notation is the **variance**, not the standard deviation."
+      "markdown": "The **Gaussian distribution** \u2014 also called the **normal distribution** \u2014 is a continuous probability distribution on the whole real line. It is fixed by two numbers: a location parameter **\u03bc** (the mean) and a scale parameter **\u03c3 > 0** (the standard deviation).\n\nIts probability *density* is a symmetric bell centred at \u03bc: values near \u03bc are more plausible than values far away, and the curve falls off smoothly in both directions. Because X is continuous, the probability of any exact value is zero. We work with density, and probabilities come from areas under the curve.\n\nA random variable X with this distribution is written X ~ N(\u03bc, \u03c3\u00b2). The second parameter in that notation is the **variance**, not the standard deviation."
     },
     {
       "id": "motivation",
@@ -22,27 +26,27 @@
     {
       "id": "visual-intuition",
       "title": "Visual intuition",
-      "markdown": "Use the laboratory below. **μ** slides the curve left and right without changing its shape. **σ** stretches or compresses the curve horizontally: larger σ means more spread and a lower peak, because the total area under a density curve must remain exactly 1.\n\nThe plot shows the density on the fixed window x ∈ [−12, 12]. The Gaussian has no finite support: the curve continues beyond the window toward zero but never reaches it. The window is a display choice, not a claim that values outside it are impossible.\n\nThe shaded-looking intuition to keep in mind is **area**, not height. The area between μ − σ and μ + σ is about 68.27% of the total probability; between μ − 2σ and μ + 2σ about 95.45%; between μ − 3σ and μ + 3σ about 99.73%."
+      "markdown": "Use the laboratory below. **\u03bc** slides the curve left and right without changing its shape. **\u03c3** stretches or compresses the curve horizontally: larger \u03c3 means more spread and a lower peak, because the total area under a density curve must remain exactly 1.\n\nThe plot shows the density on the fixed window x \u2208 [\u221212, 12]. The Gaussian has no finite support: the curve continues beyond the window toward zero but never reaches it. The window is a display choice, not a claim that values outside it are impossible.\n\nThe shaded-looking intuition to keep in mind is **area**, not height. The area between \u03bc \u2212 \u03c3 and \u03bc + \u03c3 is about 68.27% of the total probability; between \u03bc \u2212 2\u03c3 and \u03bc + 2\u03c3 about 95.45%; between \u03bc \u2212 3\u03c3 and \u03bc + 3\u03c3 about 99.73%."
     },
     {
       "id": "structure",
       "title": "Structure of the model",
-      "markdown": "| Component | Gaussian |\n| --- | --- |\n| Random variable | X ∈ ℝ (continuous) |\n| Parameters | μ ∈ ℝ, σ > 0 |\n| Support | The entire real line, (−∞, ∞) |\n| Density | Symmetric, unimodal, strictly positive everywhere |\n| Mean | E[X] = μ |\n| Variance | Var(X) = σ² |\n| Shape | Determined by σ; no separate skewness or tail parameter |\n| Cumulative distribution | Φ((x − μ) / σ), with no elementary closed form |\n\nThe family is closed under linear transformations: if X ~ N(μ, σ²) then aX + b ~ N(aμ + b, a²σ²). Standardising, Z = (X − μ) / σ, gives the standard normal N(0, 1), whose CDF is written Φ."
+      "markdown": "| Component | Gaussian |\n| --- | --- |\n| Random variable | X \u2208 \u211d (continuous) |\n| Parameters | \u03bc \u2208 \u211d, \u03c3 > 0 |\n| Support | The entire real line, (\u2212\u221e, \u221e) |\n| Density | Symmetric, unimodal, strictly positive everywhere |\n| Mean | E[X] = \u03bc |\n| Variance | Var(X) = \u03c3\u00b2 |\n| Shape | Determined by \u03c3; no separate skewness or tail parameter |\n| Cumulative distribution | \u03a6((x \u2212 \u03bc) / \u03c3), with no elementary closed form |\n\nFor a nondegenerate Gaussian with \u03c3 > 0, linear transformations behave as follows: if a \u2260 0, then aX + b is Gaussian with mean a\u03bc + b and variance a\u00b2\u03c3\u00b2. If a = 0, then aX + b is the constant b \u2014 a degenerate random variable, not a positive-variance Gaussian. Standardising with a = 1/\u03c3 and b = \u2212\u03bc/\u03c3 gives Z = (X \u2212 \u03bc) / \u03c3 ~ N(0, 1), whose CDF is written \u03a6."
     },
     {
       "id": "notation-equations",
       "title": "Symbols and equations",
-      "markdown": "| Symbol | Meaning |\n| --- | --- |\n| X | The random variable being modelled |\n| x | A particular real value at which the density is evaluated |\n| μ | Location parameter; also the mean |\n| σ | Scale parameter; the standard deviation, in the same units as X |\n| σ² | Variance, in squared units |\n| f(x) | Probability density; not a probability |\n| Φ(z) | Standard normal cumulative distribution function |\n\nDensity integrates to probability: P(a ≤ X ≤ b) = ∫ from a to b of f(x) dx. For a very small interval of width dx, f(x)·dx approximates the probability of landing in it. Density values may exceed 1 when σ is small; probabilities cannot."
+      "markdown": "| Symbol | Meaning |\n| --- | --- |\n| X | The random variable being modelled |\n| x | A particular real value at which the density is evaluated |\n| \u03bc | Location parameter; also the mean |\n| \u03c3 | Scale parameter; the standard deviation, in the same units as X |\n| \u03c3\u00b2 | Variance, in squared units |\n| f(x) | Probability density; not a probability |\n| \u03a6(z) | Standard normal cumulative distribution function |\n\nDensity integrates to probability: P(a \u2264 X \u2264 b) = \u222b from a to b of f(x) dx. For a very small interval of width dx, f(x)\u00b7dx approximates the probability of landing in it. Density values may exceed 1 when \u03c3 is small; probabilities cannot."
     },
     {
       "id": "derivation",
       "title": "Where the formula comes from",
-      "markdown": "Start from the standard normal density g(z) = C·exp(−z²/2). Requiring total area 1 gives C = 1/√(2π), because the Gaussian integral ∫ exp(−z²/2) dz over the real line equals √(2π) (evaluated by squaring the integral and using polar coordinates).\n\nNow set z = (x − μ)/σ. A change of variables contributes the Jacobian factor 1/σ, so the density of X is (1/σ)·g((x − μ)/σ). Substituting g gives the formula shown above. The exponent measures squared standardised distance from the mean; the prefactor 1/(σ√(2π)) is exactly what keeps the area equal to 1 as σ changes.\n\nThis also shows why the peak height is 1/(σ√(2π)): at x = μ the exponent is zero, so the density reaches its maximum there, and increasing σ lowers that maximum."
+      "markdown": "Start from the standard normal density g(z) = C\u00b7exp(\u2212z\u00b2/2). Requiring total area 1 gives C = 1/\u221a(2\u03c0), because the Gaussian integral \u222b exp(\u2212z\u00b2/2) dz over the real line equals \u221a(2\u03c0) (evaluated by squaring the integral and using polar coordinates).\n\nNow set z = (x \u2212 \u03bc)/\u03c3. A change of variables contributes the Jacobian factor 1/\u03c3, so the density of X is (1/\u03c3)\u00b7g((x \u2212 \u03bc)/\u03c3). Substituting g gives the formula shown above. The exponent measures squared standardised distance from the mean; the prefactor 1/(\u03c3\u221a(2\u03c0)) is exactly what keeps the area equal to 1 as \u03c3 changes.\n\nThis also shows why the peak height is 1/(\u03c3\u221a(2\u03c0)): at x = \u03bc the exponent is zero, so the density reaches its maximum there, and increasing \u03c3 lowers that maximum."
     },
     {
       "id": "fitting-inference-sampling",
       "title": "Fitting, inference and sampling",
-      "markdown": "**Maximum likelihood.** For independent observations x₁, …, xₙ, the log-likelihood is maximised by the sample mean for μ and by the average squared deviation for σ²:\n\n- μ̂ = (1/n) Σ xᵢ\n- σ̂² = (1/n) Σ (xᵢ − μ̂)²\n\nThe variance estimator with denominator **n** is the maximum likelihood estimator. It is biased downward in finite samples; the unbiased sample variance uses denominator **n − 1**. Reporting which denominator is used matters, especially for small n.\n\n**Inference.** A confidence interval for μ uses the standard error σ/√n (with a t correction when σ is estimated from small samples). Bayesian inference combines a prior with the likelihood; a conjugate normal prior yields a normal posterior. Neither procedure is implemented as an interactive laboratory in M001 — the statements here are explanatory.\n\n**Sampling.** Exact samplers exist: inverse-CDF (Box–Muller is a classical transform-based method) and library samplers such as `scipy.stats.norm.rvs`. This milestone does not generate observations in the browser, and the plot contains no simulated data. Sampling behaviour should be studied with a documented seed and a stated sample size."
+      "markdown": "**Maximum likelihood.** Consider independent and identically distributed (iid) observations x\u2081, \u2026, x\u2099 from N(\u03bc, \u03c3\u00b2), with a nondegenerate sample (not all observations identical). The log-likelihood is then maximised by the sample mean for \u03bc and by the average squared deviation for \u03c3\u00b2:\n\n- \u03bc\u0302 = (1/n) \u03a3 x\u1d62\n- \u03c3\u0302\u00b2 = (1/n) \u03a3 (x\u1d62 \u2212 \u03bc\u0302)\u00b2\n\nThe variance estimator with denominator **n** is the maximum likelihood estimator. It is biased downward in finite samples. If every observation is identical, no finite maximum exists over strictly positive variance: the likelihood increases without bound as \u03c3 approaches zero, so the maximiser lies on the zero-variance boundary rather than inside the parameter space. The usual unbiased sample variance uses denominator **n \u2212 1** and requires **n > 1**. Reporting which denominator is used matters, especially for small n.\n\n**Frequentist inference.** With a known observation variance \u03c3\u00b2, a normal-theory confidence interval for \u03bc uses the standard error \u03c3/\u221an and standard normal quantiles. When \u03c3\u00b2 is unknown and estimated from iid normal observations, the standard error is s/\u221an and the pivot follows Student's t with **n \u2212 1** degrees of freedom. The t procedure is not merely a small-sample patch: it accounts for estimating the variance, remains the exact normal-theory interval under those assumptions for n > 1, and approaches the normal interval as n grows. Neither procedure is implemented as an interactive laboratory in M001 \u2014 the statements here are explanatory.\n\n**Bayesian inference.** If the observation variance is known and a normal prior is placed on the unknown mean \u03bc, the normal likelihood and normal prior are conjugate, and the posterior for \u03bc is normal. That closed form does not by itself establish a conjugate model for the general case with unknown variance; a joint treatment additionally requires a prior on the variance (for example an inverse-gamma prior). Bayesian inference is not implemented as an interactive laboratory in M001.\n\n**Sampling.** Inverse-CDF sampling and Box\u2013Muller are distinct exact methods for the normal distribution. Inverse-CDF sampling transforms a uniform variate U through the inverse normal CDF: X = \u03bc + \u03c3\u03a6\u207b\u00b9(U). Box\u2013Muller instead maps two independent uniform variates through trigonometric expressions to produce independent standard normal values. Library samplers such as `scipy.stats.norm.rvs` use transform-based methods of this kind. This milestone does not generate observations in the browser, and the plot contains no simulated data. Sampling behaviour should be studied with a documented seed and a stated sample size."
     },
     {
       "id": "code",
@@ -57,34 +61,34 @@
     {
       "id": "assumptions-limitations",
       "title": "Assumptions and limitations",
-      "markdown": "- **Unbounded support.** Any real value has positive density, including impossible negative values for a strictly positive quantity.\n- **Symmetry and a single mode.** Skewed or multi-modal data are poorly represented.\n- **Light tails.** Extreme values are far less likely than under a Student's t or other heavy-tailed model.\n- **Fixed shape.** There is no separate parameter for skewness or tail weight.\n- **Density is not probability.** A density value can exceed 1; only areas are probabilities.\n- **The plotted window is finite.** Truncating the display at ±12 does not truncate the distribution, and the visible area is not evidence of exact normalization.\n- **Fitted parameters are estimates.** They carry uncertainty that this display does not quantify.\n- **No interactive fitting or sampling.** Those topics are explained in text only in M001 and would require their own verified laboratories."
+      "markdown": "- **Unbounded support.** Any real value has positive density, including impossible negative values for a strictly positive quantity.\n- **Symmetry and a single mode.** Skewed or multi-modal data are poorly represented.\n- **Light tails.** Extreme values are far less likely than under a Student's t or other heavy-tailed model.\n- **Fixed shape.** There is no separate parameter for skewness or tail weight.\n- **Density is not probability.** A density value can exceed 1; only areas are probabilities.\n- **The plotted window is finite.** Truncating the display at \u00b112 does not truncate the distribution, and the visible area is not evidence of exact normalization.\n- **Fitted parameters are estimates.** They carry uncertainty that this display does not quantify.\n- **No interactive fitting or sampling.** Those topics are explained in text only in M001 and would require their own verified laboratories."
     },
     {
       "id": "knowledge-check",
       "title": "Knowledge check",
-      "markdown": "1. If σ doubles while μ stays fixed, what happens to the peak height and to the area under the whole curve?\n2. Why can a probability density exceed 1, while a probability cannot?\n3. A fitted model reports σ̂² using denominator n. Is that the unbiased sample variance?\n\n<details><summary>Answers</summary>\n\n1. The peak height halves because it is 1/(σ√(2π)); the total area stays 1.\n2. Density is probability per unit of x. Only its integral over an interval is a probability, and that integral is bounded by 1.\n3. No. The maximum likelihood estimator uses denominator n and is biased downward; the unbiased estimator uses n − 1.\n\n</details>"
+      "markdown": "1. If \u03c3 doubles while \u03bc stays fixed, what happens to the peak height and to the area under the whole curve?\n2. Why can a probability density exceed 1, while a probability cannot?\n3. A fitted model reports \u03c3\u0302\u00b2 using denominator n. Is that the unbiased sample variance?\n\n<details><summary>Answers</summary>\n\n1. The peak height halves because it is 1/(\u03c3\u221a(2\u03c0)); the total area stays 1.\n2. Density is probability per unit of x. Only its integral over an interval is a probability, and that integral is bounded by 1.\n3. No. The maximum likelihood estimator uses denominator n and is biased downward; the usual unbiased estimator uses n \u2212 1 and requires n > 1.\n\n</details>"
     }
   ],
   "equations": [
     {
       "id": "pdf",
       "tex": "f(x) = \\frac{1}{\\sigma\\sqrt{2\\pi}}\\exp\\!\\left(-\\frac{(x-\\mu)^2}{2\\sigma^2}\\right)",
-      "caption": "Gaussian probability density. f(x) is a density, not a probability."
+      "caption": "Gaussian probability density with location \u03bc and standard deviation \u03c3 > 0. f(x) is a density, not a probability."
     },
     {
       "id": "mean-variance",
       "tex": "\\mathbb{E}[X] = \\mu, \\qquad \\operatorname{Var}(X) = \\sigma^2",
-      "caption": "The two parameters are the mean and the variance of the distribution."
+      "caption": "\u03bc is the location parameter and the mean; \u03c3 is the standard deviation; \u03c3\u00b2 is the variance."
     },
     {
       "id": "standardize",
       "tex": "Z = \\frac{X-\\mu}{\\sigma} \\sim \\mathcal{N}(0,1)",
-      "caption": "Standardisation maps any Gaussian to the standard normal."
+      "caption": "Standardisation divides by the standard deviation \u03c3 and subtracts the mean \u03bc, mapping any nondegenerate Gaussian to N(0, 1)."
     },
     {
       "id": "interval",
       "tex": "P(\\mu - k\\sigma \\le X \\le \\mu + k\\sigma) = \\Phi(k) - \\Phi(-k)",
-      "caption": "Interval probability from the standard normal CDF; 68.27%, 95.45% and 99.73% for k = 1, 2, 3."
+      "caption": "Interval probability for k standard deviations, using the standard normal CDF; 68.27%, 95.45% and 99.73% for k = 1, 2, 3."
     }
   ],
   "references": [
@@ -119,7 +123,7 @@
     {
       "id": "scipy-norm",
       "authors": "SciPy developers",
-      "title": "scipy.stats.norm — SciPy reference documentation",
+      "title": "scipy.stats.norm \u2014 SciPy reference documentation",
       "year": 2026,
       "url": "https://docs.scipy.org/doc/scipy/reference/generated/scipy.stats.norm.html",
       "supports": "Reference implementation used by the exported Python source and verification tests."

@@ -212,6 +212,24 @@ export function validateRegistrySource(
     siblingOrders.set(category.parent, orders);
   }
 
+  // Reject duplicate canonical module identifiers before constructing lookup
+  // Maps, which would otherwise collapse duplicates silently (RF-010).
+  for (const [sourceName, modules] of [
+    ["baseline", baseline.modules],
+    ["projection", projection.modules],
+  ] as const) {
+    const seenModuleIds = new Set<string>();
+    for (const record of modules) {
+      if (seenModuleIds.has(record.id)) {
+        issues.push({
+          code: `duplicate-${sourceName}-module`,
+          message: `Duplicate canonical module id "${record.id}" in ${sourceName} modules`,
+        });
+      }
+      seenModuleIds.add(record.id);
+    }
+  }
+
   // Module identity sets must match the baseline exactly.
   const baselineModules = new Map(baseline.modules.map((module) => [module.id, module]));
   const projectionModules = new Map(projection.modules.map((module) => [module.id, module]));

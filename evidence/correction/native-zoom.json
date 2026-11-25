@@ -1,0 +1,40 @@
+{
+  "check": "RF-003 native browser 200% zoom",
+  "status": "NOT RUN",
+  "environment": {
+    "executor": "OpenCode",
+    "os": "macOS 27.2.1 arm64",
+    "automationBrowser": "Google Chrome for Testing 159.0.8154.6 (Playwright Chromium, headed)",
+    "installedBrowser": "Google Chrome 158.0.8127.37",
+    "window": "1280 x 900 CSS pixels",
+    "themesRequested": ["light", "dark"]
+  },
+  "attempts": [
+    {
+      "method": "Headed Playwright Chromium; page.keyboard.press('Meta+=') twice",
+      "observed": "innerWidth 1280, innerHeight 900, devicePixelRatio 1, visualViewport.scale 1 after both attempts. Playwright's synthetic key events did not trigger the browser zoom accelerator.",
+      "result": "NOT APPLIED"
+    },
+    {
+      "method": "AppleScript System Events keystroke to process 'Google Chrome for Testing'",
+      "observed": "System Events error 1002: osascript is not allowed to send keystrokes. macOS Accessibility permission is not granted to the automation host.",
+      "result": "BLOCKED BY OS PERMISSION"
+    }
+  ],
+  "blocker": "Actual native browser zoom could not be driven from the executor environment without macOS Accessibility permission or interactive browser UI control.",
+  "viewportReflowReference": {
+    "note": "The existing 640px-viewport test is a CSS-pixel reflow simulation and is NOT presented as native browser zoom.",
+    "status": "PASS (separate check)",
+    "scope": ["/", "/explorer", "/models/gaussian-normal", "/labs/gaussian-normal"],
+    "observed": "No horizontal overflow; Gaussian plot and headings remain visible."
+  },
+  "instructionsForFounderOrLead": [
+    "Open Chrome 158 or newer at a 1280 x 900 CSS-pixel window, light theme.",
+    "Set View > Zoom > 200% (Chrome must display 200% in the zoom menu).",
+    "Visit /, /explorer, /models/gaussian-normal and /labs/gaussian-normal.",
+    "For each page: confirm no unintended horizontal page scrolling, the header/nav remain operable, the desktop sidebar becomes the responsive layout as appropriate, and the Gaussian chart/table/code remain reachable (contained scrolling for chart/table/code is acceptable).",
+    "Repeat with the dark theme, then repeat at 320px and 768px widths.",
+    "Record screenshots, browser version, measured window size, theme and any defects in the correction review.",
+    "Do not substitute a reduced viewport for native zoom when signing off RF-003."
+  ]
+}

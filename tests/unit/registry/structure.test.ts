@@ -196,3 +196,26 @@ describe("navigation DTO", () => {
     expect(total).toBe(123);
   });
 });
+
+describe("duplicate canonical module identifiers (RF-010)", () => {
+  it("rejects duplicate module ids in the baseline array before map construction", () => {
+    const baseline = readBaseline();
+    baseline.modules.push({ ...baseline.modules[0]! });
+    expect(() =>
+      buildRuntimeRegistry(baseline, readProjection(), { baselineDigest: baselineDigest() }),
+    ).toThrow(/duplicate-baseline-module/);
+  });
+
+  it("rejects duplicate module ids in the projection array before map construction", () => {
+    const projection = cloneProjection();
+    projection.modules.push({ ...projection.modules[0]! });
+    expect(() =>
+      buildRuntimeRegistry(readBaseline(), projection, { baselineDigest: baselineDigest() }),
+    ).toThrow(/duplicate-projection-module/);
+  });
+
+  it("keeps the frozen production modules unique", () => {
+    const ids = productionRegistry.modules.map((record) => record.id);
+    expect(new Set(ids).size).toBe(ids.length);
+  });
+});

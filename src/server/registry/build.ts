@@ -353,6 +353,15 @@ export interface TreeModuleDto {
   status: ModuleLifecycleStatus;
 }
 
+/**
+ * One sibling entry in the original taxonomy order. A parent may mix
+ * subcategories and direct leaf placements, so the DTO keeps their shared
+ * order instead of concatenating categories before placements (RF-013).
+ */
+export type TreeNodeEntry =
+  | { type: "category"; node: TreeNodeDto }
+  | { type: "module"; module: TreeModuleDto };
+
 export interface TreeNodeDto {
   id: string;
   label: string;
@@ -361,6 +370,7 @@ export interface TreeNodeDto {
   moduleCount: number;
   children: TreeNodeDto[];
   modules: TreeModuleDto[];
+  entries: TreeNodeEntry[];
 }
 
 export interface TreeDto {
@@ -455,19 +465,40 @@ export function buildTreeDto(
       .sort((a, b) => a.order - b.order)
       .map((child) => buildNode(child.id));
 
-    const modules = (placementsByCategory.get(categoryId) ?? [])
+    const moduleEntries = (placementsByCategory.get(categoryId) ?? [])
+      .slice()
       .sort((a, b) => a.order - b.order)
       .map((placement) => {
         const record = moduleById.get(placement.moduleId);
         if (!record) throw new Error(`Unknown module ${placement.moduleId}`);
         return {
-          id: record.id,
-          title: record.title,
-          label: placement.label,
-          url: moduleUrl(record.id),
-          status: resolveStatus(record.id),
-        } satisfies TreeModuleDto;
+          order: placement.order,
+          module: {
+            id: record.id,
+            title: record.title,
+            label: placement.label,
+            url: moduleUrl(record.id),
+            status: resolveStatus(record.id),
+          } satisfies TreeModuleDto,
+        };
       });
+    const modules = moduleEntries.map((entry) => entry.module);
+
+    // Preserve the baseline sibling order across categories and direct leaf
+    // placements. Production mixed branches (e.g. PGM) already list categories
+    // before the direct leaf, but the contract must hold for any order.
+    const entries: TreeNodeEntry[] = [
+      ...children.map((child) => ({
+        order: categoryById.get(child.id)?.order ?? 0,
+        entry: { type: "category", node: child } as TreeNodeEntry,
+      })),
+      ...moduleEntries.map((entry) => ({
+        order: entry.order,
+        entry: { type: "module", module: entry.module } as TreeNodeEntry,
+      })),
+    ]
+      .sort((a, b) => a.order - b.order)
+      .map((item) => item.entry);
 
     return {
       id: category.id,
@@ -478,6 +509,7 @@ export function buildTreeDto(
         modules.length + children.reduce((total, child) => total + child.moduleCount, 0),
       children,
       modules,
+      entries,
     };
   };
 

@@ -6,9 +6,10 @@ import {
   GAUSSIAN_DISPLAY_DOMAIN,
   GAUSSIAN_LAB_BOUNDS,
   formatNumber,
+  nearestGaussianLabValues,
   sampleGaussianCurve,
   summarizeGaussian,
-  validateGaussianLabParams,
+  validateGaussianLabField,
   type GaussianParams,
 } from "@/science/gaussian";
 import {
@@ -37,16 +38,59 @@ const UNIT: Record<keyof GaussianParams, string> = {
   sigma: "x units",
 };
 
+const FIELD_SYMBOL: Record<keyof GaussianParams, string> = {
+  mu: "μ",
+  sigma: "σ",
+};
+
+/** Canonical decimal text for a value on the approved 0.1 grid. */
+function formatLabDraft(value: number): string {
+  return Number(value.toFixed(1)).toString();
+}
+
+/**
+ * Accessible explanation for a numeric draft that does not match the applied
+ * grid value. Returns null when the draft is valid.
+ */
+function describeFieldError(
+  field: keyof GaussianParams,
+  raw: string,
+  applied: number,
+): string | null {
+  const symbol = FIELD_SYMBOL[field];
+  const bounds = GAUSSIAN_LAB_BOUNDS[field];
+  const appliedText = `${symbol} = ${formatNumber(applied, 2)}`;
+
+  if (raw.trim() === "") {
+    return `Enter a numeric ${symbol} value. The plot, equations and export still use ${appliedText}.`;
+  }
+  const parsed = Number(raw);
+  if (!Number.isFinite(parsed)) {
+    return `Enter a finite numeric ${symbol} value. The plot, equations and export still use ${appliedText}.`;
+  }
+  if (validateGaussianLabField(field, parsed).ok) return null;
+
+  const nearest = nearestGaussianLabValues(field, parsed);
+  const reason =
+    parsed < bounds.min || parsed > bounds.max
+      ? `${symbol} must be between ${bounds.min} and ${bounds.max}.`
+      : `${symbol} must be on the ${bounds.step} step grid.`;
+  return `${reason} Nearest allowed values are ${nearest.lower} and ${nearest.upper}. The plot, equations and export still use ${appliedText}.`;
+}
+
 export function GaussianLab() {
   const [params, setParams] = useState<GaussianParams>({
     mu: DEFAULT_GAUSSIAN_SNAPSHOT.mu,
     sigma: DEFAULT_GAUSSIAN_SNAPSHOT.sigma,
   });
-  const [draft, setDraft] = useState({
+  const [drafts, setDrafts] = useState({
     mu: String(DEFAULT_GAUSSIAN_SNAPSHOT.mu),
     sigma: String(DEFAULT_GAUSSIAN_SNAPSHOT.sigma),
   });
-  const [error, setError] = useState<string | null>(null);
+  const [fieldErrors, setFieldErrors] = useState<Record<keyof GaussianParams, string | null>>({
+    mu: null,
+    sigma: null,
+  });
   const [copyStatus, setCopyStatus] = useState<"idle" | "copied" | "manual" | "error">("idle");
   const sourceRef = useRef<HTMLTextAreaElement>(null);
 
@@ -72,45 +116,36 @@ export function GaussianLab() {
     .map((point, index) => `${index === 0 ? "M" : "L"}${xScale(point.x).toFixed(2)},${yScale(point.y).toFixed(2)}`)
     .join(" ");
 
-  const applyParams = (next: GaussianParams): boolean => {
-    const validation = validateGaussianLabParams(next);
-    if (!validation.ok) {
-      setError(validation.errors.join(" "));
-      return false;
-    }
-    setParams(validation.value);
-    setError(null);
-    return true;
-  };
-
   const onSlider = (field: keyof GaussianParams, value: string) => {
     const next = Number(value);
-    setDraft((current) => ({ ...current, [field]: value }));
-    if (applyParams({ ...params, [field]: next })) {
-      setDraft((current) => ({ ...current, [field]: String(next) }));
-    }
+    const validation = validateGaussianLabField(field, next);
+    if (!validation.ok) return;
+    setDrafts((current) => ({ ...current, [field]: formatLabDraft(validation.value) }));
+    // Clear only this field's error; the other field keeps its own state.
+    setFieldErrors((current) => ({ ...current, [field]: null }));
+    setParams((current) => ({ ...current, [field]: validation.value }));
   };
 
   const onNumberInput = (field: keyof GaussianParams, value: string) => {
-    setDraft((current) => ({ ...current, [field]: value }));
-    if (value.trim() === "") {
-      setError("Enter a numeric value.");
-      return;
-    }
-    const next = Number(value);
-    if (!Number.isFinite(next)) {
-      setError("Enter a finite numeric value.");
-      return;
-    }
-    if (applyParams({ ...params, [field]: next })) {
-      setDraft((current) => ({ ...current, [field]: String(next) }));
+    setDrafts((current) => ({ ...current, [field]: value }));
+    const message = describeFieldError(field, value, params[field]);
+    setFieldErrors((current) => ({ ...current, [field]: message }));
+    if (message !== null) return;
+    setParams((current) => ({ ...current, [field]: Number(value) }));
+  };
+
+  const onNumberBlur = (field: keyof GaussianParams) => {
+    if (fieldErrors[field]) return;
+    const parsed = Number(drafts[field]);
+    if (Number.isFinite(parsed)) {
+      setDrafts((current) => ({ ...current, [field]: formatLabDraft(parsed) }));
     }
   };
 
   const reset = () => {
     setParams({ mu: DEFAULT_GAUSSIAN_SNAPSHOT.mu, sigma: DEFAULT_GAUSSIAN_SNAPSHOT.sigma });
-    setDraft({ mu: "0", sigma: "1" });
-    setError(null);
+    setDrafts({ mu: "0", sigma: "1" });
+    setFieldErrors({ mu: null, sigma: null });
     setCopyStatus("idle");
   };
 
@@ -295,6 +330,8 @@ export function GaussianLab() {
             const bounds = GAUSSIAN_LAB_BOUNDS[field];
             const inputId = `gaussian-${field}`;
             const helpId = `${inputId}-help`;
+            const errorId = `${inputId}-error`;
+            const fieldError = fieldErrors[field];
             return (
               <div className={styles.control} key={field}>
                 <div className={styles.controlTop}>
@@ -306,10 +343,12 @@ export function GaussianLab() {
                     min={bounds.min}
                     max={bounds.max}
                     step={bounds.step}
-                    value={draft[field]}
+                    value={drafts[field]}
                     onChange={(event) => onNumberInput(field, event.target.value)}
+                    onBlur={() => onNumberBlur(field)}
                     aria-label={`${PARAM_LABELS[field]} numeric input`}
-                    aria-describedby={helpId}
+                    aria-invalid={fieldError ? true : undefined}
+                    aria-describedby={fieldError ? `${helpId} ${errorId}` : helpId}
                     data-testid={`${field}-number`}
                   />
                 </div>
@@ -322,22 +361,33 @@ export function GaussianLab() {
                   step={bounds.step}
                   value={params[field]}
                   onChange={(event) => onSlider(field, event.target.value)}
-                  aria-valuetext={`${params[field]} ${UNIT[field]}`}
+                  aria-valuetext={`${formatNumber(params[field], 2)} ${UNIT[field]}`}
                   data-testid={`${field}-slider`}
                 />
                 <p className={styles.help} id={helpId}>
                   Range {bounds.min} to {bounds.max}, step {bounds.step} {UNIT[field]}. Use arrow
                   keys when the slider is focused.
                 </p>
+                {fieldError ? (
+                  <p
+                    className={styles.error}
+                    id={errorId}
+                    role="alert"
+                    data-testid={`${field}-error`}
+                  >
+                    {fieldError}
+                  </p>
+                ) : null}
+                {fieldError ? (
+                  <p className={styles.applied} data-testid={`${field}-applied`}>
+                    Applied snapshot: {PARAM_LABELS[field]} = {formatNumber(params[field], 2)}{" "}
+                    {UNIT[field]}. The slider, equations, statistics, plot and Python export all
+                    use this applied value.
+                  </p>
+                ) : null}
               </div>
             );
           })}
-
-          {error ? (
-            <p className={styles.error} role="alert" data-testid="param-error">
-              {error} The plot keeps the last valid snapshot.
-            </p>
-          ) : null}
 
           <div className={styles.equation} data-testid="dynamic-equation">
             <p className={styles.equationLine}>

@@ -1,8 +1,9 @@
-import type { TreeNodeDto, TreeDto } from "@/server/registry/build";
+import type { TreeNodeDto, TreeNodeEntry, TreeDto } from "@/server/registry/build";
 
 /**
  * Client-side tree filtering. Navigation data still comes from the registry
- * DTO; filtering only hides non-matching branches.
+ * DTO; filtering only hides non-matching branches and preserves the relative
+ * order of retained sibling entries.
  */
 export function filterTree(tree: TreeDto, rawQuery: string): TreeDto {
   const query = rawQuery.trim().normalize("NFKC").toLowerCase();
@@ -12,17 +13,26 @@ export function filterTree(tree: TreeDto, rawQuery: string): TreeDto {
     const selfMatches = node.label.toLowerCase().includes(query);
     if (selfMatches) return node;
 
-    const children = node.children
-      .map((child) => filterNode(child))
-      .filter((child): child is TreeNodeDto => child !== null);
-    const modules = node.modules.filter(
-      (record) =>
-        record.label.toLowerCase().includes(query) ||
-        record.title.toLowerCase().includes(query),
-    );
+    const entries = node.entries
+      .map((entry): TreeNodeEntry | null => {
+        if (entry.type === "category") {
+          const child = filterNode(entry.node);
+          return child ? { type: "category", node: child } : null;
+        }
+        const matches =
+          entry.module.label.toLowerCase().includes(query) ||
+          entry.module.title.toLowerCase().includes(query);
+        return matches ? entry : null;
+      })
+      .filter((entry): entry is TreeNodeEntry => entry !== null);
 
-    if (children.length === 0 && modules.length === 0) return null;
-    return { ...node, children, modules };
+    if (entries.length === 0) return null;
+    return {
+      ...node,
+      entries,
+      children: entries.flatMap((entry) => (entry.type === "category" ? [entry.node] : [])),
+      modules: entries.flatMap((entry) => (entry.type === "module" ? [entry.module] : [])),
+    };
   };
 
   return {

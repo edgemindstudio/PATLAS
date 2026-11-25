@@ -2,7 +2,7 @@
 
 import Link from "next/link";
 import { useId, useMemo, useRef, useState } from "react";
-import type { TreeDto } from "@/server/registry/build";
+import type { TreeDto, TreeModuleDto, TreeNodeDto } from "@/server/registry/build";
 import { StatusBadge } from "./StatusBadge";
 import { categoryIds, filterTree } from "../tree-filter";
 import styles from "./TreeNav.module.css";
@@ -15,7 +15,7 @@ interface TreeNavProps {
 
 export function TreeNav({ tree, variant = "sidebar", searchable = false }: TreeNavProps) {
   const baseId = useId();
-  const containerRef = useRef<HTMLDivElement>(null);
+  const navRef = useRef<HTMLElement>(null);
   const [manualExpanded, setManualExpanded] = useState<Set<string>>(() => new Set());
   const [filter, setFilter] = useState("");
 
@@ -41,13 +41,23 @@ export function TreeNav({ tree, variant = "sidebar", searchable = false }: TreeN
   const expandAll = () => setManualExpanded(new Set(categoryIds(visibleTree)));
   const collapseAll = () => setManualExpanded(new Set());
 
-  const onKeyDown = (event: React.KeyboardEvent<HTMLDivElement>) => {
-    if (!containerRef.current) return;
-    const focusable = Array.from(
-      containerRef.current.querySelectorAll<HTMLElement>("[data-tree-focusable='true']"),
-    ).filter((element) => element.offsetParent !== null);
+  /**
+   * Keyboard handling is scoped to the <nav> tree itself (RF-008). Keys typed
+   * in the filter input keep their ordinary text-editing behaviour.
+   */
+  const onTreeKeyDown = (event: React.KeyboardEvent<HTMLElement>) => {
+    const target = event.target as HTMLElement;
+    if (target.closest("input, textarea, select, [contenteditable='true']")) return;
+
     const active = document.activeElement as HTMLElement | null;
-    const index = active ? focusable.indexOf(active) : -1;
+    if (!active || active.getAttribute("data-tree-focusable") !== "true") return;
+
+    const nav = navRef.current;
+    if (!nav) return;
+    const focusable = Array.from(
+      nav.querySelectorAll<HTMLElement>("[data-tree-focusable='true']"),
+    ).filter((element) => element.offsetParent !== null);
+    const index = focusable.indexOf(active);
 
     switch (event.key) {
       case "ArrowDown":
@@ -67,7 +77,7 @@ export function TreeNav({ tree, variant = "sidebar", searchable = false }: TreeN
         focusable[focusable.length - 1]?.focus();
         break;
       case "ArrowRight": {
-        if (!active || active.tagName !== "BUTTON") return;
+        if (active.tagName !== "BUTTON") return;
         const id = active.getAttribute("data-category-id");
         if (id && !expanded.has(id)) {
           event.preventDefault();
@@ -76,7 +86,7 @@ export function TreeNav({ tree, variant = "sidebar", searchable = false }: TreeN
         break;
       }
       case "ArrowLeft": {
-        if (!active || active.tagName !== "BUTTON") return;
+        if (active.tagName !== "BUTTON") return;
         const id = active.getAttribute("data-category-id");
         if (id && expanded.has(id)) {
           event.preventDefault();
@@ -93,7 +103,16 @@ export function TreeNav({ tree, variant = "sidebar", searchable = false }: TreeN
     }
   };
 
-  const renderNode = (node: (typeof visibleTree)["children"][number]) => {
+  const renderModule = (record: TreeModuleDto) => (
+    <li key={`${record.id}-${record.label}`} className={styles.moduleItem}>
+      <Link href={record.url} className={styles.moduleLink} data-tree-focusable="true">
+        <span>{record.label}</span>
+        {record.status !== "planned" ? <StatusBadge status={record.status} /> : null}
+      </Link>
+    </li>
+  );
+
+  const renderNode = (node: TreeNodeDto) => {
     const isOpen = expanded.has(node.id);
     const groupId = `${baseId}-group-${node.id}`;
     return (
@@ -128,32 +147,16 @@ export function TreeNav({ tree, variant = "sidebar", searchable = false }: TreeN
           </span>
         </div>
         <ul id={groupId} className={styles.group} hidden={!isOpen}>
-          {node.children.map(renderNode)}
-          {node.modules.map((record) => (
-            <li key={`${record.id}-${record.label}`} className={styles.moduleItem}>
-              <Link
-                href={record.url}
-                className={styles.moduleLink}
-                data-tree-focusable="true"
-              >
-                <span>{record.label}</span>
-                {record.status !== "planned" ? (
-                  <StatusBadge status={record.status} />
-                ) : null}
-              </Link>
-            </li>
-          ))}
+          {node.entries.map((entry) =>
+            entry.type === "category" ? renderNode(entry.node) : renderModule(entry.module),
+          )}
         </ul>
       </li>
     );
   };
 
   return (
-    <div
-      ref={containerRef}
-      className={`${styles.nav} ${styles[variant]}`}
-      onKeyDown={onKeyDown}
-    >
+    <div className={`${styles.nav} ${styles[variant]}`}>
       {searchable ? (
         <div className={styles.controls}>
           <label className={styles.filterLabel} htmlFor={`${baseId}-filter`}>
@@ -180,10 +183,8 @@ export function TreeNav({ tree, variant = "sidebar", searchable = false }: TreeN
         </div>
       ) : null}
 
-      <nav aria-label="Model taxonomy">
-        <ul className={styles.root}>
-          {visibleTree.children.map(renderNode)}
-        </ul>
+      <nav aria-label="Model taxonomy" ref={navRef} onKeyDown={onTreeKeyDown}>
+        <ul className={styles.root}>{visibleTree.children.map(renderNode)}</ul>
       </nav>
 
       {visibleTree.children.length === 0 ? (

@@ -73,7 +73,44 @@ test.describe("search API over HTTP", () => {
 });
 
 test.describe("search interface", () => {
-  test("uses the real endpoint and supports keyboard selection", async ({ page }) => {
+  test("maintains a coherent combobox/listbox relationship in every state", async ({ page }) => {
+    await page.goto("/");
+    const input = page.getByTestId("search-input");
+    const listbox = page.locator('[role="listbox"]');
+
+    const controls = await input.getAttribute("aria-controls");
+    expect(controls).toBeTruthy();
+    expect(
+      await page.evaluate((id) => Boolean(id && document.getElementById(id)), controls),
+    ).toBe(true);
+    await expect(input).toHaveAttribute("aria-expanded", "false");
+    await expect(input).not.toHaveAttribute("aria-activedescendant");
+    await expect(listbox).toHaveCount(1);
+    await expect(listbox).toBeHidden();
+
+    await input.fill("Hidden Markov Models");
+    await expect(input).toHaveAttribute("aria-expanded", "true");
+    await expect(listbox).toBeVisible();
+    await expect(page.getByRole("option").first()).toBeVisible();
+
+    await input.press("ArrowDown");
+    const activeId = await input.getAttribute("aria-activedescendant");
+    expect(activeId).toBeTruthy();
+    expect(
+      await page.evaluate((id) => Boolean(id && document.getElementById(id)), activeId),
+    ).toBe(true);
+    expect(
+      await page.evaluate((id) => document.getElementById(id!)?.getAttribute("role"), activeId),
+    ).toBe("option");
+    await expect(page.getByRole("option").first()).toHaveAttribute("aria-selected", "true");
+
+    await input.press("Escape");
+    await expect(input).toHaveAttribute("aria-expanded", "false");
+    await expect(input).not.toHaveAttribute("aria-activedescendant");
+    await expect(listbox).toBeHidden();
+  });
+
+  test("supports keyboard selection through the real API", async ({ page }) => {
     await page.goto("/");
     const input = page.getByTestId("search-input");
     await input.fill("Hidden Markov Models");
@@ -87,54 +124,86 @@ test.describe("search interface", () => {
     await expect(page).toHaveURL(/\/models\/hidden-markov-models-hmm$/);
   });
 
-  test("shows a no-results message for unknown queries", async ({ page }) => {
-    await page.goto("/explorer");
-    await page.getByTestId("search-input").fill("zzzz-no-such-model-zzzz");
-    await expect(page.getByText("No matches for “zzzz-no-such-model-zzzz”.")).toBeVisible();
+  test("supports mouse selection of a result option", async ({ page }) => {
+    await page.goto("/");
+    await page.getByTestId("search-input").fill("Gaussian (Normal)");
+    const first = page.getByRole("option").first();
+    await expect(first).toContainText("Gaussian (Normal)");
+    await first.click();
+    await expect(page).toHaveURL(/\/models\/gaussian-normal$/);
   });
 
-  test("Escape closes the results panel", async ({ page }) => {
+  test("shows a no-results message and no stale active option", async ({ page }) => {
+    await page.goto("/explorer");
+    const input = page.getByTestId("search-input");
+    await input.fill("zzzz-no-such-model-zzzz");
+    await expect(page.getByText("No matches for “zzzz-no-such-model-zzzz”.")).toBeVisible();
+    await expect(input).toHaveAttribute("aria-expanded", "true");
+    await expect(input).not.toHaveAttribute("aria-activedescendant");
+    await expect(page.locator('[role="listbox"]')).toHaveCount(1);
+    await expect(page.locator('[role="listbox"]')).toBeHidden();
+  });
+
+  test("clears a previous active option when results change", async ({ page }) => {
     await page.goto("/");
     const input = page.getByTestId("search-input");
     await input.fill("Gaussian");
     await expect(page.getByRole("option").first()).toBeVisible();
-    await input.press("Escape");
-    await expect(page.getByRole("listbox")).toHaveCount(0);
-  });
-});
+    await input.press("ArrowDown");
+    await expect(input).toHaveAttribute("aria-activedescendant", /option-0$/);
 
-test("shows a loading state before results arrive", async ({ page }) => {
-  await page.route("**/api/search**", async (route) => {
-    await new Promise((resolve) => setTimeout(resolve, 700));
-    await route.fulfill({
-      status: 200,
-      contentType: "application/json",
-      body: JSON.stringify({
-        query: "gaussian",
-        normalizedQuery: "gaussian",
-        count: 0,
-        limit: 20,
-        results: [],
-      }),
+    await input.fill("VAE");
+    await expect(page.getByRole("option").first()).toBeVisible();
+    const activeId = await input.getAttribute("aria-activedescendant");
+    if (activeId) {
+      expect(
+        await page.evaluate((id) => Boolean(id && document.getElementById(id)), activeId),
+      ).toBe(true);
+    } else {
+      expect(activeId).toBeNull();
+    }
+  });
+
+  test("shows a loading state with an existing busy listbox", async ({ page }) => {
+    await page.route("**/api/search**", async (route) => {
+      await new Promise((resolve) => setTimeout(resolve, 700));
+      await route.fulfill({
+        status: 200,
+        contentType: "application/json",
+        body: JSON.stringify({
+          query: "gaussian",
+          normalizedQuery: "gaussian",
+          count: 0,
+          limit: 20,
+          results: [],
+        }),
+      });
     });
+    await page.goto("/");
+    const input = page.getByTestId("search-input");
+    await input.fill("gaussian");
+    await expect(page.getByText("Searching…")).toBeVisible();
+    await expect(page.locator('[role="listbox"]')).toHaveAttribute("aria-busy", "true");
+    await expect(input).not.toHaveAttribute("aria-activedescendant");
   });
-  await page.goto("/");
-  await page.getByTestId("search-input").fill("gaussian");
-  await expect(page.getByText("Searching…")).toBeVisible();
-});
 
-test("shows a recoverable error state when the endpoint fails", async ({ page }) => {
-  await page.route("**/api/search**", (route) =>
-    route.fulfill({
-      status: 500,
-      contentType: "application/json",
-      body: JSON.stringify({ error: "Search is temporarily unavailable." }),
-    }),
-  );
-  await page.goto("/");
-  await page.getByTestId("search-input").fill("gaussian");
-  await expect(
-    page.getByRole("alert").filter({ hasText: "Search is temporarily unavailable" }),
-  ).toBeVisible();
-  await expect(page.getByRole("button", { name: "Retry search" })).toBeVisible();
+  test("shows a recoverable error state without stale option references", async ({ page }) => {
+    await page.route("**/api/search**", (route) =>
+      route.fulfill({
+        status: 500,
+        contentType: "application/json",
+        body: JSON.stringify({ error: "Search is temporarily unavailable." }),
+      }),
+    );
+    await page.goto("/");
+    const input = page.getByTestId("search-input");
+    await input.fill("gaussian");
+    await expect(
+      page.getByRole("alert").filter({ hasText: "Search is temporarily unavailable" }),
+    ).toBeVisible();
+    await expect(page.getByRole("button", { name: "Retry search" })).toBeVisible();
+    await expect(input).toHaveAttribute("aria-expanded", "true");
+    await expect(input).not.toHaveAttribute("aria-activedescendant");
+    await expect(page.locator('[role="listbox"]')).toHaveCount(1);
+  });
 });

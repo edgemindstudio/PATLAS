@@ -14,7 +14,7 @@ permissions:
 
 jobs:
   node:
-    name: Node — lint, types, unit and science tests, build
+    name: Node — lint, types, non-Python tests, build
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
@@ -28,8 +28,8 @@ jobs:
         run: npm run lint
       - name: Typecheck
         run: npm run typecheck
-      - name: Unit, registry, search and science tests
-        run: npm test
+      - name: Unit, registry, search, content and boundary tests (no Python required)
+        run: npm run test:unit:node
       - name: Production build
         run: npm run build
 
@@ -38,11 +38,17 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "24"
+          cache: npm
       - uses: actions/setup-python@v5
         with:
           python-version: "3.12"
           cache: pip
           cache-dependency-path: python/requirements.txt
+      - name: Install pinned Node.js dependencies
+        run: npm ci
       - name: Create isolated environment
         run: |
           python -m venv .venv
@@ -50,8 +56,8 @@ jobs:
           .venv/bin/python -m pip install -r python/requirements.txt
       - name: Python reference tests
         run: .venv/bin/python -m pytest python/tests -q
-      - name: TypeScript/Python export parity
-        run: npx vitest run tests/unit/science
+      - name: TypeScript/SciPy parity and Python export execution
+        run: npm run test:unit:science
 
   browser:
     name: Browser — production server routes, search, laboratory, accessibility
@@ -63,15 +69,7 @@ jobs:
         with:
           node-version: "24"
           cache: npm
-      - uses: actions/setup-python@v5
-        with:
-          python-version: "3.12"
       - run: npm ci
-      - name: Create isolated Python environment
-        run: |
-          python -m venv .venv
-          .venv/bin/python -m pip install --upgrade pip
-          .venv/bin/python -m pip install -r python/requirements.txt
       - name: Install Chromium
         run: npx playwright install --with-deps chromium
       - name: Build production server

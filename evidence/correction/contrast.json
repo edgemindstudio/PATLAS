@@ -1,0 +1,181 @@
+{
+  "generatedBy": "tests/unit/accessibility/contrast.test.ts",
+  "measuredAt": "2026-11-25T01:39:42.692Z",
+  "method": "WCAG relative luminance ratio from src/ui/tokens.css",
+  "thresholds": {
+    "text": 4.5,
+    "nonText": 3
+  },
+  "light": {
+    "text": [
+      {
+        "pair": "text/canvas",
+        "foreground": "#0f172a",
+        "background": "#f8fafc",
+        "ratio": 17.062933971317335
+      },
+      {
+        "pair": "text/surface",
+        "foreground": "#0f172a",
+        "background": "#ffffff",
+        "ratio": 17.85253496299567
+      },
+      {
+        "pair": "muted/canvas",
+        "foreground": "#475569",
+        "background": "#f8fafc",
+        "ratio": 7.242510935504382
+      },
+      {
+        "pair": "muted/surface",
+        "foreground": "#475569",
+        "background": "#ffffff",
+        "ratio": 7.577663953533317
+      },
+      {
+        "pair": "primary/surface",
+        "foreground": "#087f69",
+        "background": "#ffffff",
+        "ratio": 4.941109364126809
+      },
+      {
+        "pair": "link/surface",
+        "foreground": "#1d4ed8",
+        "background": "#ffffff",
+        "ratio": 6.701618401398807
+      }
+    ],
+    "nonText": [
+      {
+        "pair": "border-strong/surface",
+        "foreground": "#64748b",
+        "background": "#ffffff",
+        "ratio": 4.758842787868666
+      },
+      {
+        "pair": "focus/canvas",
+        "foreground": "#1d4ed8",
+        "background": "#f8fafc",
+        "ratio": 6.405212062099509
+      },
+      {
+        "pair": "chart-1/surface",
+        "foreground": "#087f69",
+        "background": "#ffffff",
+        "ratio": 4.941109364126809
+      }
+    ],
+    "status": [
+      {
+        "pair": "status-partial-fg/status-partial-bg",
+        "foreground": "#92400e",
+        "background": "#fef3c7",
+        "ratio": 6.367237188363559
+      },
+      {
+        "pair": "status-planned-fg/status-planned-bg",
+        "foreground": "#475569",
+        "background": "#f1f5f9",
+        "ratio": 6.916973995632248
+      },
+      {
+        "pair": "status-implemented-fg/status-implemented-bg",
+        "foreground": "#065f4f",
+        "background": "#d1fae5",
+        "ratio": 6.714971237091679
+      },
+      {
+        "pair": "danger/danger-bg",
+        "foreground": "#b91c1c",
+        "background": "#fef2f2",
+        "ratio": 5.914600426850339
+      }
+    ]
+  },
+  "dark": {
+    "text": [
+      {
+        "pair": "text/canvas",
+        "foreground": "#f1f5f9",
+        "background": "#0b1220",
+        "ratio": 17.090652895776767
+      },
+      {
+        "pair": "text/surface",
+        "foreground": "#f1f5f9",
+        "background": "#111c2e",
+        "ratio": 15.592345974953536
+      },
+      {
+        "pair": "muted/canvas",
+        "foreground": "#94a3b8",
+        "background": "#0b1220",
+        "ratio": 7.302184824417838
+      },
+      {
+        "pair": "muted/surface",
+        "foreground": "#94a3b8",
+        "background": "#111c2e",
+        "ratio": 6.66201536300076
+      },
+      {
+        "pair": "primary/surface",
+        "foreground": "#36c9a7",
+        "background": "#111c2e",
+        "ratio": 8.190679862231853
+      },
+      {
+        "pair": "link/surface",
+        "foreground": "#93c5fd",
+        "background": "#111c2e",
+        "ratio": 9.472590062026887
+      }
+    ],
+    "nonText": [
+      {
+        "pair": "border-strong/surface",
+        "foreground": "#64748b",
+        "background": "#111c2e",
+        "ratio": 3.5894615343042
+      },
+      {
+        "pair": "focus/canvas",
+        "foreground": "#93c5fd",
+        "background": "#0b1220",
+        "ratio": 10.382834567302401
+      },
+      {
+        "pair": "chart-1/surface",
+        "foreground": "#36c9a7",
+        "background": "#111c2e",
+        "ratio": 8.190679862231853
+      }
+    ],
+    "status": [
+      {
+        "pair": "status-partial-fg/status-partial-bg",
+        "foreground": "#fcd34d",
+        "background": "#3b2f14",
+        "ratio": 9.087317438493175
+      },
+      {
+        "pair": "status-planned-fg/status-planned-bg",
+        "foreground": "#cbd5e1",
+        "background": "#1e293b",
+        "ratio": 9.852964414874926
+      },
+      {
+        "pair": "status-implemented-fg/status-implemented-bg",
+        "foreground": "#6ee7c8",
+        "background": "#0f2e26",
+        "ratio": 9.677862991733434
+      },
+      {
+        "pair": "danger/danger-bg",
+        "foreground": "#fca5a5",
+        "background": "#3b1515",
+        "ratio": 8.484654363414851
+      }
+    ]
+  }
+}

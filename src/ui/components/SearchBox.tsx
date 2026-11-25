@@ -1,6 +1,5 @@
 "use client";
 
-import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { useEffect, useId, useRef, useState } from "react";
 import type { SearchResult, SearchSuccessBody } from "@/server/search/search";
@@ -28,6 +27,14 @@ export function SearchBox() {
   const results = isCurrent ? outcome.results : [];
   const isError = isCurrent && outcome.error;
   const isLoading = trimmed.length > 0 && !isCurrent;
+  const showPanel = open && trimmed.length > 0;
+
+  // Derive the active option so a stale index can never reference an option
+  // that no longer exists after results change or the panel closes (RF-009).
+  const activeOptionIndex =
+    showPanel && activeIndex >= 0 && activeIndex < results.length ? activeIndex : -1;
+  const activeOptionId =
+    activeOptionIndex >= 0 ? `${listboxId}-option-${activeOptionIndex}` : undefined;
 
   useEffect(() => {
     if (trimmed.length === 0) return;
@@ -68,6 +75,7 @@ export function SearchBox() {
 
   const navigate = (result: SearchResult) => {
     setOpen(false);
+    setActiveIndex(-1);
     router.push(result.url);
   };
 
@@ -92,15 +100,13 @@ export function SearchBox() {
       return;
     }
     if (event.key === "Enter") {
-      const result = results[activeIndex];
-      if (result && open) {
+      const result = results[activeOptionIndex];
+      if (result && showPanel) {
         event.preventDefault();
         navigate(result);
       }
     }
   };
-
-  const showPanel = open && trimmed.length > 0;
 
   return (
     <div className={styles.wrapper} ref={containerRef}>
@@ -116,9 +122,7 @@ export function SearchBox() {
         aria-controls={listboxId}
         aria-autocomplete="list"
         aria-haspopup="listbox"
-        aria-activedescendant={
-          activeIndex >= 0 ? `${listboxId}-option-${activeIndex}` : undefined
-        }
+        aria-activedescendant={activeOptionId}
         placeholder="Search models, aliases, categories…"
         value={query}
         onChange={(event) => {
@@ -144,78 +148,75 @@ export function SearchBox() {
             : statusMessage(isCurrent, results.length, trimmed)}
       </div>
 
-      {showPanel ? (
-        <div className={styles.panel}>
-          {isLoading ? <p className={styles.message}>Searching…</p> : null}
-          {isError ? (
-            <>
-              <p className={`${styles.message} ${styles.error}`} role="alert">
-                Search is temporarily unavailable. Please try again.
-              </p>
-              <button
-                type="button"
-                className="button button-small"
-                onClick={() => {
-                  setOutcome(null);
-                  setRetry((current) => current + 1);
-                }}
-              >
-                Retry search
-              </button>
-            </>
-          ) : null}
-          {isCurrent && !isError && results.length === 0 ? (
-            <p className={styles.message}>
-              No matches for “{trimmed}”. Try a model name, alias or category.
+      <div className={styles.panel} hidden={!showPanel} data-testid="search-panel">
+        {isLoading ? <p className={styles.message}>Searching…</p> : null}
+        {isError ? (
+          <>
+            <p className={`${styles.message} ${styles.error}`} role="alert">
+              Search is temporarily unavailable. Please try again.
             </p>
-          ) : null}
-          {results.length > 0 ? (
-            <ul
-              id={listboxId}
-              role="listbox"
-              aria-label="Search results"
-              className={styles.list}
+            <button
+              type="button"
+              className="button button-small"
+              onClick={() => {
+                setOutcome(null);
+                setRetry((current) => current + 1);
+              }}
             >
-              {results.map((result, index) => (
-                <li
-                  key={`${result.type}-${result.id}`}
-                  id={`${listboxId}-option-${index}`}
-                  role="option"
-                  aria-selected={index === activeIndex}
-                  className={styles.option}
-                >
-                  <Link
-                    href={result.url}
-                    className={styles.optionLink}
-                    onMouseEnter={() => setActiveIndex(index)}
-                    onClick={() => setOpen(false)}
-                  >
-                    <span className={styles.optionTop}>
-                      <span className={styles.optionTitle}>{result.title}</span>
-                      <span className={styles.optionBadges}>
-                        <span className={styles.type}>
-                          {result.type === "model" ? "Model" : "Category"}
-                        </span>
-                        <StatusBadge status={result.status} />
-                      </span>
-                    </span>
-                    <span className={styles.branch}>
-                      {result.branches
-                        .map((branch) => branch.labels.join(" › "))
-                        .join("  ·  ")}
-                    </span>
-                  </Link>
-                </li>
-              ))}
-            </ul>
-          ) : null}
-          <p className={styles.hint}>
-            {results.length > 0
-              ? `${results.length} of up to 20 results · canonical results deduplicated`
-              : "Use ↑ ↓ to move, Enter to open, Esc to close."}
+              Retry search
+            </button>
+          </>
+        ) : null}
+        {isCurrent && !isError && results.length === 0 ? (
+          <p className={styles.message}>
+            No matches for “{trimmed}”. Try a model name, alias or category.
           </p>
-        </div>
-      ) : null}
+        ) : null}
+
+        <ul
+          id={listboxId}
+          role="listbox"
+          aria-label="Search results"
+          aria-busy={isLoading}
+          className={styles.list}
+          hidden={results.length === 0}
+        >
+          {results.map((result, index) => (
+            <li
+              key={`${result.type}-${result.id}`}
+              id={`${listboxId}-option-${index}`}
+              role="option"
+              aria-selected={index === activeOptionIndex}
+              className={styles.option}
+              onMouseEnter={() => setActiveIndex(index)}
+              onClick={() => navigate(result)}
+            >
+              <span className={styles.optionLink}>
+                <span className={styles.optionTop}>
+                  <span className={styles.optionTitle}>{result.title}</span>
+                  <span className={styles.optionBadges}>
+                    <span className={styles.type}>
+                      {result.type === "model" ? "Model" : "Category"}
+                    </span>
+                    <StatusBadge status={result.status} />
+                  </span>
+                </span>
+                <span className={styles.branch}>
+                  {result.branches
+                    .map((branch) => branch.labels.join(" › "))
+                    .join("  ·  ")}
+                </span>
+              </span>
+            </li>
+          ))}
+        </ul>
+
+        <p className={styles.hint}>
+          {results.length > 0
+            ? `${results.length} of up to 20 results · canonical results deduplicated`
+            : "Use ↑ ↓ to move, Enter to open, Esc to close."}
+        </p>
+      </div>
     </div>
   );
 }

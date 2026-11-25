@@ -109,7 +109,7 @@ extra module. A baseline with inflated declared counts is also rejected.
 
 Additive extension test: one synthetic category/module/placement is appended at
 runtime and appears automatically in tree navigation, search (title and alias),
-and coverage (10 majors unchanged, 33 categories, 124 placements, 110 modules).
+and coverage (9 majors unchanged, 33 categories, 124 placements, 110 modules).
 The synthetic ids are asserted absent from production data.
 
 ## 5. Search HTTP evidence
@@ -290,3 +290,10 @@ Disclosed limitations:
    scientific acceptance. Both require independent review.
 6. No blocking decision is requested. Review of provisional canonical mapping
    and acceptance of the Gaussian module remain separate Lead/Founder decisions.
+
+## Correction note — PATLAS-M001-COR-001
+
+RF-002 corrected a typographical error in the original text above: the synthetic
+extension keeps **9** major categories (not ten). The original executor results
+elsewhere in this document are preserved unchanged; see
+`docs/current/M001_CORRECTION_RETURN.md` for the correction evidence.

@@ -95,3 +95,47 @@ describe("Gaussian lesson content", () => {
     }
   });
 });
+
+describe("Gaussian lesson scientific qualifications (RF-007)", () => {
+  const lesson = getGaussianLesson();
+  const prose = lesson.sections.map((section) => section.markdown).join("\n");
+
+  it("qualifies the linear transformation for zero slope and nondegenerate Gaussians", () => {
+    const structure = lesson.sections.find((section) => section.id === "structure")!;
+    expect(structure.markdown).toMatch(/nondegenerate Gaussian/);
+    expect(structure.markdown).toMatch(/a ≠ 0/);
+    expect(structure.markdown).toMatch(/a = 0/);
+    expect(structure.markdown).toMatch(/constant b/);
+    expect(structure.markdown).toMatch(/not a positive-variance Gaussian/);
+  });
+
+  it("states the iid, nondegenerate-sample and n > 1 maximum-likelihood conditions", () => {
+    expect(prose).toMatch(/independent and identically distributed \(iid\)/);
+    expect(prose).toMatch(/nondegenerate sample/);
+    expect(prose).toMatch(/all observations is identical|every observation is identical/i);
+    expect(prose).toMatch(/no finite maximum/);
+    expect(prose).toMatch(/\*\*n − 1\*\* and requires \*\*n > 1\*\*/);
+  });
+
+  it("distinguishes known-variance normal inference from unknown-variance t inference", () => {
+    expect(prose).toMatch(/known observation variance/);
+    expect(prose).toMatch(/Student's t/);
+    expect(prose).toMatch(/n − 1\*\* degrees of freedom/);
+    expect(prose).toMatch(/not merely a small-sample patch/);
+  });
+
+  it("qualifies the Bayesian conjugate example and separates the two samplers", () => {
+    expect(prose).toMatch(/normal prior is placed on the unknown mean/);
+    expect(prose).toMatch(/does not by itself establish/);
+    expect(prose).toMatch(/known observation variance/);
+    expect(prose).toMatch(/Inverse-CDF sampling and Box–Muller are distinct/);
+    expect(prose).toMatch(/trigonometric expressions/);
+  });
+
+  it("keeps equation captions explicit about location, standard deviation and variance", () => {
+    const captions = lesson.equations.map((equation) => equation.caption).join(" ");
+    expect(captions).toMatch(/location μ/);
+    expect(captions).toMatch(/standard deviation σ/);
+    expect(captions).toMatch(/σ² is the variance/);
+  });
+});

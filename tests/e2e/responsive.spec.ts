@@ -51,6 +51,113 @@ test.describe("responsive layout", () => {
     await expect(browse).toBeFocused();
   });
 
+  test("drawer isolates the background and wraps focus forward and backward", async ({
+    page,
+  }) => {
+    await page.setViewportSize({ width: 320, height: 800 });
+    await page.goto("/");
+    await page.getByRole("button", { name: "Browse" }).click();
+
+    const dialog = page.getByRole("dialog", { name: "Model browser and navigation" });
+    await expect(dialog).toBeVisible();
+
+    const backgroundInert = await page
+      .locator("header")
+      .evaluate((element) => element.closest("[inert]") !== null);
+    expect(backgroundInert).toBe(true);
+
+    const focusables = dialog.locator("a[href]:visible, button:not([disabled]):visible");
+    const first = focusables.first();
+    const last = focusables.last();
+
+    await last.focus();
+    await page.keyboard.press("Tab");
+    await expect(first).toBeFocused();
+
+    await first.focus();
+    await page.keyboard.press("Shift+Tab");
+    await expect(last).toBeFocused();
+
+    // Programmatic focus on inert background content must not escape the modal.
+    await page.locator("header a").first().evaluate((element) => element.focus());
+    expect(
+      await page.evaluate(() => document.activeElement?.closest("[role='dialog']") !== null),
+    ).toBe(true);
+  });
+
+  test("drawer navigation and ordinary close both dismiss the modal", async ({ page }) => {
+    await page.setViewportSize({ width: 320, height: 800 });
+    await page.goto("/");
+    const browse = page.getByRole("button", { name: "Browse" });
+
+    await browse.click();
+    const dialog = page.getByRole("dialog", { name: "Model browser and navigation" });
+    await dialog.getByRole("link", { name: "Explorer", exact: true }).click();
+    await expect(page).toHaveURL(/\/explorer$/);
+    await expect(dialog).toHaveCount(0);
+
+    await browse.click();
+    await expect(dialog).toBeVisible();
+    await dialog.getByRole("button", { name: "Close navigation drawer" }).click();
+    await expect(dialog).toHaveCount(0);
+    await expect(browse).toBeFocused();
+  });
+
+  test("taxonomy filter input keeps ordinary text-editing keys", async ({ page }) => {
+    await page.setViewportSize({ width: 1280, height: 900 });
+    await page.goto("/explorer");
+    const filter = page.getByLabel("Filter models");
+    await filter.click();
+    await filter.fill("gaussian");
+
+    // Home/End and the arrow keys must be left to the browser's input editing
+    // behaviour: focus and value stay under the user's control.
+    await filter.press("End");
+    await expect(filter).toBeFocused();
+    await expect(filter).toHaveValue("gaussian");
+
+    await filter.press("Home");
+    await expect(filter).toBeFocused();
+    await expect(filter).toHaveValue("gaussian");
+
+    const caretBefore = await filter.evaluate((element) =>
+      element instanceof HTMLInputElement ? element.selectionStart : null,
+    );
+    await filter.press("ArrowLeft");
+    await expect(filter).toBeFocused();
+    const caretAfter = await filter.evaluate((element) =>
+      element instanceof HTMLInputElement ? element.selectionStart : null,
+    );
+    if (caretBefore !== null && caretAfter !== null) {
+      expect(caretAfter).toBeLessThanOrEqual(caretBefore);
+    }
+
+    await filter.press("ArrowDown");
+    await expect(filter).toBeFocused();
+    await expect(filter).toHaveValue("gaussian");
+  });
+
+  test("tree disclosure and arrow navigation remain keyboard operable", async ({ page }) => {
+    await page.setViewportSize({ width: 1280, height: 900 });
+    await page.goto("/explorer");
+    const toggle = page
+      .locator('nav[aria-label="Model taxonomy"] button[data-category-id]')
+      .first();
+    await toggle.focus();
+    await expect(toggle).toHaveAttribute("aria-expanded", "false");
+
+    await page.keyboard.press("ArrowRight");
+    await expect(toggle).toHaveAttribute("aria-expanded", "true");
+
+    await page.keyboard.press("ArrowDown");
+    expect(
+      await page.evaluate(() =>
+        document.activeElement?.getAttribute("data-tree-focusable"),
+      ),
+    ).toBe("true");
+    expect(await page.evaluate(() => document.activeElement?.tagName)).toBe("A");
+  });
+
   test("desktop sidebar is replaced by the drawer on small screens", async ({ page }) => {
     await page.setViewportSize({ width: 1280, height: 900 });
     await page.goto("/explorer");

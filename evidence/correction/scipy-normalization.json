@@ -1,0 +1,24 @@
+{
+  "generatedBy": "tests/unit/science/scipy-parity.test.ts",
+  "measuredAt": "2026-11-25T01:39:43.695Z",
+  "approvedNormalizationTolerance": 0.000001,
+  "caseCount": 3,
+  "maxNormalizationAbsoluteError": 1.1102230246251565e-16,
+  "cases": [
+    {
+      "mu": 0,
+      "sigma": 1,
+      "normalizationAbsoluteError": 1.1102230246251565e-16
+    },
+    {
+      "mu": -3,
+      "sigma": 0.5,
+      "normalizationAbsoluteError": 1.1102230246251565e-16
+    },
+    {
+      "mu": 3,
+      "sigma": 2.5,
+      "normalizationAbsoluteError": 0
+    }
+  ]
+}

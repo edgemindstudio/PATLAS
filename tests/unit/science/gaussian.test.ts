@@ -9,6 +9,8 @@ import {
   gaussianVariance,
   sampleGaussianCurve,
   summarizeGaussian,
+  nearestGaussianLabValues,
+  validateGaussianLabField,
   validateGaussianLabParams,
   validateGaussianParams,
   validateGaussianSnapshot,
@@ -151,6 +153,31 @@ describe("Gaussian parameter validation", () => {
     expect(validateGaussianLabParams({ mu: 0, sigma: 2.6 }).ok).toBe(false);
     expect(validateGaussianLabParams({ mu: 3, sigma: 0.5 }).ok).toBe(true);
     expect(validateGaussianLabParams({ mu: -3, sigma: 2.5 }).ok).toBe(true);
+  });
+
+  it("enforces the approved 0.1 step grid for laboratory input", () => {
+    expect(validateGaussianLabField("mu", 0.15).ok).toBe(false);
+    expect(validateGaussianLabField("mu", 0.3).ok).toBe(true);
+    expect(validateGaussianLabField("sigma", 1.25).ok).toBe(false);
+    expect(validateGaussianLabField("sigma", 1.2).ok).toBe(true);
+    expect(validateGaussianLabField("mu", 3.0000000001).ok).toBe(true);
+    expect(validateGaussianLabField("mu", 0.16).ok).toBe(false);
+    expect(validateGaussianLabParams({ mu: 0.15, sigma: 1 }).ok).toBe(false);
+    expect(validateGaussianLabParams({ mu: 0, sigma: 1.25 }).ok).toBe(false);
+  });
+
+  it("reports nearest allowed laboratory grid values", () => {
+    expect(nearestGaussianLabValues("mu", 0.15)).toEqual({ lower: 0.1, upper: 0.2 });
+    expect(nearestGaussianLabValues("mu", -3.2)).toEqual({ lower: -3, upper: -2.9 });
+    expect(nearestGaussianLabValues("sigma", 1.25)).toEqual({ lower: 1.2, upper: 1.3 });
+    expect(nearestGaussianLabValues("sigma", 2.55)).toEqual({ lower: 2.5, upper: 2.5 });
+  });
+
+  it("keeps mathematical validity separate from laboratory grid constraints", () => {
+    expect(validateGaussianParams({ mu: 0.15, sigma: 1.25 }).ok).toBe(true);
+    expect(validateGaussianParams({ mu: 100, sigma: 3 }).ok).toBe(true);
+    expect(validateGaussianLabParams({ mu: 0.15, sigma: 1.25 }).ok).toBe(false);
+    expect(gaussianPdf(0.15, 0.15, 1.25)).toBeGreaterThan(0);
   });
 
   it("validates export snapshots", () => {

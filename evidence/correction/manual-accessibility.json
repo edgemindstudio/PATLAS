@@ -1,0 +1,72 @@
+{
+  "check": "RF-004 targeted manual accessibility verification",
+  "status": "PARTIAL — executor checks passed; screen-reader and native-zoom items NOT RUN",
+  "environment": {
+    "browser": "Playwright Chromium 159.0.8154.6 (headless production-server tests)",
+    "themes": ["light", "dark"],
+    "viewports": ["320", "768", "1280", "640 (reflow equivalent only)"]
+  },
+  "performed": [
+    {
+      "check": "Automated axe-core scans",
+      "scope": ["Home", "Explorer", "Gaussian lesson", "Gaussian laboratory"],
+      "themes": ["light", "dark"],
+      "result": "PASS — 8 scans, 0 WCAG A/AA violations reported"
+    },
+    {
+      "check": "Visible keyboard focus",
+      "evidence": "Search input focus outline is non-zero; focus-ring contrast measured 6.41:1 light and 10.38:1 dark against the canvas.",
+      "result": "PASS"
+    },
+    {
+      "check": "Tree keyboard navigation and filter text editing",
+      "evidence": "tests/e2e/responsive.spec.ts — filter Home/End/arrows retain focus and value; tree ArrowRight expands, ArrowDown moves focus.",
+      "result": "PASS"
+    },
+    {
+      "check": "Search combobox/listbox states",
+      "evidence": "tests/e2e/search.spec.ts — closed, loading, results, empty and error states; aria-controls target exists; aria-activedescendant cleared or valid.",
+      "result": "PASS"
+    },
+    {
+      "check": "Mobile drawer focus isolation and wrapping",
+      "evidence": "tests/e2e/responsive.spec.ts — background inert, forward and reverse Tab wrapping, Escape, close-button focus restoration, drawer navigation.",
+      "result": "PASS"
+    },
+    {
+      "check": "Parameter controls",
+      "evidence": "tests/e2e/lab.spec.ts — numeric/slider synchronization, boundaries, off-grid rejection, independent errors, reset, equation/export synchronization.",
+      "result": "PASS"
+    },
+    {
+      "check": "Chart and numeric alternatives",
+      "evidence": "SVG title/desc include peak density, 68.27% band and finite display window; statistics table caption states density is not probability; table provides numeric summary.",
+      "result": "PASS"
+    },
+    {
+      "check": "Text and non-text contrast",
+      "evidence": "evidence/correction/contrast.json — text ratios >= 4.94:1, non-text ratios >= 3.59:1, status ratios >= 5.91:1 in both themes.",
+      "result": "PASS"
+    },
+    {
+      "check": "Reduced motion",
+      "evidence": "tests/e2e/accessibility.spec.ts — scroll-behavior becomes auto and animation durations collapse under prefers-reduced-motion: reduce.",
+      "result": "PASS"
+    }
+  ],
+  "notRun": [
+    {
+      "check": "Actual screen-reader walkthrough",
+      "status": "NOT RUN",
+      "reason": "No VoiceOver/NVDA automation is available to the executor; observed behaviour could not be recorded without a human session.",
+      "instruction": "Founder or Lead should run VoiceOver (Safari/Chrome) over Home, Explorer, search, drawer and the Gaussian lab, recording announcements, focus order and any defects."
+    },
+    {
+      "check": "Actual native browser 200% zoom",
+      "status": "NOT RUN",
+      "reason": "See evidence/correction/native-zoom.json — macOS Accessibility permission blocks synthetic browser zoom shortcuts.",
+      "instruction": "Use Chrome View > Zoom > 200% manually at 1280x900 and follow the recorded checklist."
+    }
+  ],
+  "certification": "No WCAG certification is claimed. These are targeted executor checks plus automated scans."
+}

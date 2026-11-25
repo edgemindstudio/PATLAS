@@ -68,7 +68,7 @@ export function AppShell({ tree, children }: { tree: TreeDto; children: ReactNod
     const onKeyDown = (event: KeyboardEvent) => {
       if (event.key === "Escape") {
         setDrawerOpen(false);
-        browseButtonRef.current?.focus();
+        window.setTimeout(() => browseButtonRef.current?.focus(), 0);
         return;
       }
       if (event.key !== "Tab" || !dialogRef.current) return;
@@ -80,6 +80,11 @@ export function AppShell({ tree, children }: { tree: TreeDto; children: ReactNod
       if (focusable.length === 0) return;
       const first = focusable[0]!;
       const last = focusable[focusable.length - 1]!;
+      if (!dialogRef.current.contains(document.activeElement)) {
+        event.preventDefault();
+        first.focus();
+        return;
+      }
       if (event.shiftKey && document.activeElement === first) {
         event.preventDefault();
         last.focus();
@@ -98,7 +103,7 @@ export function AppShell({ tree, children }: { tree: TreeDto; children: ReactNod
 
   const closeDrawer = () => {
     setDrawerOpen(false);
-    browseButtonRef.current?.focus();
+    window.setTimeout(() => browseButtonRef.current?.focus(), 0);
   };
 
   const isActive = (href: string) =>
@@ -106,59 +111,110 @@ export function AppShell({ tree, children }: { tree: TreeDto; children: ReactNod
 
   return (
     <>
-      <a className="skip-link" href="#main-content">
-        Skip to main content
-      </a>
+      <div className={styles.background} inert={drawerVisible || undefined}>
+        <a className="skip-link" href="#main-content">
+          Skip to main content
+        </a>
 
-      <header className={styles.header}>
-        <div className={styles.headerInner}>
-          <button
-            ref={browseButtonRef}
-            type="button"
-            className={`${styles.browseButton} button button-small`}
-            aria-expanded={drawerVisible}
-            aria-controls="mobile-drawer"
-            onClick={openDrawer}
-          >
-            <span aria-hidden="true">☰</span>
-            <span>Browse</span>
-          </button>
+        <header className={styles.header}>
+          <div className={styles.headerInner}>
+            <button
+              ref={browseButtonRef}
+              type="button"
+              className={`${styles.browseButton} button button-small`}
+              aria-expanded={drawerVisible}
+              aria-controls="mobile-drawer"
+              onClick={openDrawer}
+            >
+              <span aria-hidden="true">☰</span>
+              <span>Browse</span>
+            </button>
 
-          <Link href="/" className={styles.brand}>
-            <BrandMark />
-            <span className={styles.brandText}>
-              <span className={styles.brandName}>PATLAS</span>
-              <span className={styles.brandTag}>Probabilistic Atlas</span>
-            </span>
-          </Link>
+            <Link href="/" className={styles.brand}>
+              <BrandMark />
+              <span className={styles.brandText}>
+                <span className={styles.brandName}>PATLAS</span>
+                <span className={styles.brandTag}>Probabilistic Atlas</span>
+              </span>
+            </Link>
 
-          <nav className={styles.primaryNav} aria-label="Primary">
-            <ul className={styles.navList}>
-              {NAV.map((item) => (
-                <li key={item.href}>
-                  <Link
-                    href={item.href}
-                    className={styles.navLink}
-                    aria-current={isActive(item.href) ? "page" : undefined}
-                  >
-                    {item.label}
-                  </Link>
-                </li>
-              ))}
-            </ul>
-          </nav>
+            <nav className={styles.primaryNav} aria-label="Primary">
+              <ul className={styles.navList}>
+                {NAV.map((item) => (
+                  <li key={item.href}>
+                    <Link
+                      href={item.href}
+                      className={styles.navLink}
+                      aria-current={isActive(item.href) ? "page" : undefined}
+                    >
+                      {item.label}
+                    </Link>
+                  </li>
+                ))}
+              </ul>
+            </nav>
 
-          <div className={styles.actions}>
-            <div className={styles.searchWrap}>
-              <SearchBox />
+            <div className={styles.actions}>
+              <div className={styles.searchWrap}>
+                <SearchBox />
+              </div>
+              <ThemeToggle />
             </div>
-            <ThemeToggle />
           </div>
+        </header>
+
+        <div className={styles.frame}>
+          <aside className={styles.sidebar} aria-label="Explorer sidebar">
+            <div className={styles.sidebarSticky}>
+              <p className={styles.sidebarTitle}>Model explorer</p>
+              <TreeNav tree={tree} variant="sidebar" />
+              <p className={styles.provisional}>{tree.provisionalNotice}</p>
+            </div>
+          </aside>
+          <main id="main-content" className={styles.main} tabIndex={-1}>
+            {children}
+          </main>
         </div>
-      </header>
+
+        <footer className={styles.footer}>
+          <div className={styles.footerInner}>
+            <div>
+              <p className={styles.footerBrand}>PATLAS — Probabilistic Atlas</p>
+              <p className={styles.footerText}>
+                Visual-first learning about probabilistic models, with reproducible mathematics
+                and runnable reference code.
+              </p>
+            </div>
+            <div>
+              <p className={styles.footerHeading}>Licensing</p>
+              <p className={styles.footerText}>
+                Original software: MIT. Original educational content: CC BY 4.0. Third-party
+                references are cited, not reproduced.
+              </p>
+            </div>
+            <div>
+              <p className={styles.footerHeading}>Milestone</p>
+              <p className={styles.footerText}>
+                PATLAS-M001 reference slice. Independent engineering and scientific review
+                pending; no module is accepted.
+              </p>
+              <p className={styles.footerLinks}>
+                <a href="https://github.com/edgemindstudio/PATLAS">Repository</a>
+                <span aria-hidden="true"> · </span>
+                <Link href="/explorer">Explorer</Link>
+              </p>
+            </div>
+          </div>
+        </footer>
+      </div>
 
       {drawerVisible ? (
-        <div className={styles.overlay}>
+        <div
+          className={styles.overlay}
+          onMouseDown={(event) => {
+            if (event.target === event.currentTarget) closeDrawer();
+          }}
+        >
           <div
             id="mobile-drawer"
             ref={dialogRef}
@@ -198,59 +254,8 @@ export function AppShell({ tree, children }: { tree: TreeDto; children: ReactNod
             <hr />
             <TreeNav tree={tree} variant="drawer" />
           </div>
-          <button
-            type="button"
-            className={styles.overlayDismiss}
-            aria-label="Close navigation drawer"
-            onClick={closeDrawer}
-            tabIndex={-1}
-          />
         </div>
       ) : null}
-
-      <div className={styles.frame}>
-        <aside className={styles.sidebar} aria-label="Explorer sidebar">
-          <div className={styles.sidebarSticky}>
-            <p className={styles.sidebarTitle}>Model explorer</p>
-            <TreeNav tree={tree} variant="sidebar" />
-            <p className={styles.provisional}>{tree.provisionalNotice}</p>
-          </div>
-        </aside>
-        <main id="main-content" className={styles.main} tabIndex={-1}>
-          {children}
-        </main>
-      </div>
-
-      <footer className={styles.footer}>
-        <div className={styles.footerInner}>
-          <div>
-            <p className={styles.footerBrand}>PATLAS — Probabilistic Atlas</p>
-            <p className={styles.footerText}>
-              Visual-first learning about probabilistic models, with reproducible mathematics
-              and runnable reference code.
-            </p>
-          </div>
-          <div>
-            <p className={styles.footerHeading}>Licensing</p>
-            <p className={styles.footerText}>
-              Original software: MIT. Original educational content: CC BY 4.0. Third-party
-              references are cited, not reproduced.
-            </p>
-          </div>
-          <div>
-            <p className={styles.footerHeading}>Milestone</p>
-            <p className={styles.footerText}>
-              PATLAS-M001 reference slice. Independent engineering and scientific review
-              pending; no module is accepted.
-            </p>
-            <p className={styles.footerLinks}>
-              <a href="https://github.com/edgemindstudio/PATLAS">Repository</a>
-              <span aria-hidden="true"> · </span>
-              <Link href="/explorer">Explorer</Link>
-            </p>
-          </div>
-        </div>
-      </footer>
     </>
   );
 }

@@ -45,6 +45,11 @@
 .option {
   margin: 0;
   border-radius: var(--radius-sm);
+  cursor: pointer;
+}
+
+.option:hover {
+  background: var(--surface-muted);
 }
 
 .option[aria-selected="true"] {

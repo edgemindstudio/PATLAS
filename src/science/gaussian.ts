@@ -72,25 +72,71 @@ export function validateGaussianParams(input: unknown): ValidationResult<Gaussia
   return { ok: true, value: { mu: candidate.mu, sigma: candidate.sigma } };
 }
 
+/** Tolerance used to compare laboratory values against the approved step grid. */
+export const GAUSSIAN_LAB_GRID_EPSILON = 1e-9;
+
+/**
+ * Laboratory-specific field validation: finite, inside the approved bounds and
+ * aligned to the approved step grid. This is deliberately separate from the
+ * mathematical validity contract in validateGaussianParams.
+ */
+export function validateGaussianLabField(
+  field: keyof GaussianParams,
+  value: number,
+): ValidationResult<number> {
+  const bounds = GAUSSIAN_LAB_BOUNDS[field];
+  if (!Number.isFinite(value)) {
+    return { ok: false, errors: [`${field} must be a finite number.`] };
+  }
+  if (
+    value < bounds.min - GAUSSIAN_LAB_GRID_EPSILON ||
+    value > bounds.max + GAUSSIAN_LAB_GRID_EPSILON
+  ) {
+    return {
+      ok: false,
+      errors: [`${field} must be between ${bounds.min} and ${bounds.max}.`],
+    };
+  }
+  const gridIndex = (value - bounds.min) / bounds.step;
+  if (Math.abs(gridIndex - Math.round(gridIndex)) > GAUSSIAN_LAB_GRID_EPSILON) {
+    return {
+      ok: false,
+      errors: [`${field} must be on the ${bounds.step} step grid.`],
+    };
+  }
+  return { ok: true, value };
+}
+
+/** Nearest allowed grid values, clamped to the approved bounds. */
+export function nearestGaussianLabValues(
+  field: keyof GaussianParams,
+  value: number,
+): { lower: number; upper: number } {
+  const bounds = GAUSSIAN_LAB_BOUNDS[field];
+  const maxIndex = Math.round((bounds.max - bounds.min) / bounds.step);
+  const rawIndex = (value - bounds.min) / bounds.step;
+  const lowerIndex = Math.max(
+    0,
+    Math.min(maxIndex, Math.floor(rawIndex + GAUSSIAN_LAB_GRID_EPSILON)),
+  );
+  const upperIndex = Math.min(maxIndex, lowerIndex + 1);
+  const round = (index: number) =>
+    Number((bounds.min + index * bounds.step).toFixed(10));
+  return { lower: round(lowerIndex), upper: round(upperIndex) };
+}
+
 /**
  * Interactive-laboratory validity: mathematical validity plus the Founder
- * approved control ranges. Used by the UI; exported source only needs the
- * mathematical constraint.
+ * approved control ranges and step grid. Used by the UI; exported source only
+ * needs the mathematical constraint.
  */
 export function validateGaussianLabParams(input: unknown): ValidationResult<GaussianParams> {
   const base = validateGaussianParams(input);
   if (!base.ok) return base;
   const errors: string[] = [];
-  const { mu, sigma } = base.value;
-  if (mu < GAUSSIAN_LAB_BOUNDS.mu.min || mu > GAUSSIAN_LAB_BOUNDS.mu.max) {
-    errors.push(
-      `mu must be between ${GAUSSIAN_LAB_BOUNDS.mu.min} and ${GAUSSIAN_LAB_BOUNDS.mu.max}.`,
-    );
-  }
-  if (sigma < GAUSSIAN_LAB_BOUNDS.sigma.min || sigma > GAUSSIAN_LAB_BOUNDS.sigma.max) {
-    errors.push(
-      `sigma must be between ${GAUSSIAN_LAB_BOUNDS.sigma.min} and ${GAUSSIAN_LAB_BOUNDS.sigma.max}.`,
-    );
+  for (const field of ["mu", "sigma"] as const) {
+    const fieldResult = validateGaussianLabField(field, base.value[field]);
+    if (!fieldResult.ok) errors.push(...fieldResult.errors);
   }
   if (errors.length > 0) return { ok: false, errors };
   return base;

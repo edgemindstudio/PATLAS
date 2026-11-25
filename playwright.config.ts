@@ -26,7 +26,7 @@ export default defineConfig({
     },
   ],
   webServer: {
-    command: `npm run start -- --port ${PORT}`,
+    command: `npm run start -- --port ${PORT} --hostname 127.0.0.1`,
     url: `${BASE_URL}/api/search?q=gaussian`,
     reuseExistingServer: false,
     timeout: 180_000,

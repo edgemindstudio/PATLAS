@@ -17,7 +17,9 @@
     "test:watch": "vitest",
     "test:python": ".venv/bin/python -m pytest python/tests -q",
     "test:e2e": "playwright test",
-    "setup:python": "python3 -m venv .venv && .venv/bin/python -m pip install --upgrade pip && .venv/bin/python -m pip install -r python/requirements.txt"
+    "setup:python": "python3 -m venv .venv && .venv/bin/python -m pip install --upgrade pip && .venv/bin/python -m pip install -r python/requirements.txt",
+    "test:unit:node": "vitest run tests/unit/registry tests/unit/search tests/unit/content tests/unit/architecture tests/unit/accessibility",
+    "test:unit:science": "vitest run tests/unit/science"
   },
   "dependencies": {
     "ajv": "8.20.0",
