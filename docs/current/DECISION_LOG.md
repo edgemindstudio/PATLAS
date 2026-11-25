@@ -28,6 +28,21 @@ approved open-source licensing direction:
 - Original software: MIT
 - Original educational content: CC BY 4.0
 
+## RD-001 — Visibility amendment
+
+Date: 2026-11-24
+Status: FOUNDER APPROVED
+
+- Current repository visibility: PUBLIC
+- Repository owner remains edgemindstudio.
+- PATLAS follows open-source development.
+- Ebonkie remains independently connected.
+- MIT and CC BY 4.0 licensing remain unchanged.
+- Public website deployment remains deferred.
+
+This amendment supersedes the initial private
+visibility decision only.
+
 ## Milestone approvals
 
 - Phase 0 foundation: APPROVED
