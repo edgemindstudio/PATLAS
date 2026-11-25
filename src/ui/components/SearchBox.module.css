@@ -1,0 +1,131 @@
+.wrapper {
+  position: relative;
+  width: 100%;
+  max-width: 320px;
+}
+
+.input {
+  width: 100%;
+  min-height: 40px;
+  padding: 6px 12px;
+  border: 1px solid var(--border-strong);
+  border-radius: var(--radius-sm);
+  background: var(--surface);
+  color: var(--text);
+  font: inherit;
+  font-size: 0.92rem;
+}
+
+.input::placeholder {
+  color: var(--muted);
+  opacity: 1;
+}
+
+.panel {
+  position: absolute;
+  z-index: 40;
+  top: calc(100% + 6px);
+  right: 0;
+  width: min(430px, calc(100vw - 32px));
+  max-height: 60vh;
+  overflow-y: auto;
+  background: var(--surface);
+  border: 1px solid var(--border-strong);
+  border-radius: var(--radius-md);
+  box-shadow: var(--shadow);
+  padding: var(--space-2);
+}
+
+.list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.option {
+  margin: 0;
+  border-radius: var(--radius-sm);
+}
+
+.option[aria-selected="true"] {
+  background: var(--surface-muted);
+}
+
+.optionLink {
+  display: block;
+  padding: var(--space-2) var(--space-3);
+  color: var(--text);
+  text-decoration: none;
+  border-radius: var(--radius-sm);
+}
+
+.optionLink:hover {
+  text-decoration: none;
+}
+
+.optionTop {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-2);
+}
+
+.optionTitle {
+  font-weight: 600;
+}
+
+.optionBadges {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.type {
+  font-size: 0.7rem;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  color: var(--muted);
+  border: 1px solid var(--border);
+  border-radius: 999px;
+  padding: 1px 7px;
+}
+
+.branch {
+  display: block;
+  margin-top: 2px;
+  color: var(--muted);
+  font-size: 0.78rem;
+  line-height: 1.4;
+}
+
+.message {
+  margin: 0;
+  padding: var(--space-3);
+  color: var(--muted);
+  font-size: 0.9rem;
+}
+
+.error {
+  color: var(--danger);
+}
+
+.hint {
+  margin: 0;
+  padding: 6px var(--space-3) 2px;
+  border-top: 1px solid var(--border);
+  color: var(--muted);
+  font-size: 0.72rem;
+}
+
+@media (max-width: 900px) {
+  .wrapper {
+    max-width: none;
+  }
+
+  .panel {
+    left: 0;
+    right: auto;
+    width: min(100%, 430px);
+  }
+}

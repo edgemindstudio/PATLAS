@@ -1,0 +1,16 @@
+{
+  "description": "Projection invents a canonical module that is absent from the frozen baseline.",
+  "expectedIssueCode": "extra-module",
+  "mutations": [
+    {
+      "op": "push",
+      "collection": "modules",
+      "value": {
+        "id": "invented-model",
+        "name": "Invented Model",
+        "aliases": [],
+        "status": "planned"
+      }
+    }
+  ]
+}

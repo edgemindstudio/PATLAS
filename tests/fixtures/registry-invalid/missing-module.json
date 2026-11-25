@@ -1,0 +1,7 @@
+{
+  "description": "A canonical module is removed while its placements remain.",
+  "expectedIssueCode": "missing-module",
+  "mutations": [
+    { "op": "removeById", "collection": "modules", "id": "bernoulli" }
+  ]
+}

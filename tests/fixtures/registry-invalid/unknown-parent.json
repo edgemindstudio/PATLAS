@@ -1,0 +1,7 @@
+{
+  "description": "Category references a parent that does not exist.",
+  "expectedIssueCode": "unknown-parent",
+  "mutations": [
+    { "op": "setById", "collection": "categories", "id": "discrete-distributions", "field": "parent", "value": "no-such-category" }
+  ]
+}

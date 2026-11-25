@@ -1,0 +1,1371 @@
+{
+  "schema_version": "0.1",
+  "status": "review_candidate",
+  "source": "Founder-supplied tree, 2026-11-24",
+  "root": "Probabilistic Models",
+  "categories": [
+    {
+      "label": "Probability Distribution Models",
+      "id": "probability-distribution-models",
+      "children": [
+        {
+          "label": "Discrete Distributions",
+          "id": "discrete-distributions",
+          "children": [
+            {
+              "label": "Bernoulli",
+              "module_id": "bernoulli"
+            },
+            {
+              "label": "Binomial",
+              "module_id": "binomial"
+            },
+            {
+              "label": "Categorical",
+              "module_id": "categorical"
+            },
+            {
+              "label": "Multinomial",
+              "module_id": "multinomial"
+            },
+            {
+              "label": "Poisson",
+              "module_id": "poisson"
+            },
+            {
+              "label": "Geometric",
+              "module_id": "geometric"
+            }
+          ]
+        },
+        {
+          "label": "Continuous Distributions",
+          "id": "continuous-distributions",
+          "children": [
+            {
+              "label": "Gaussian (Normal)",
+              "module_id": "gaussian-normal"
+            },
+            {
+              "label": "Uniform",
+              "module_id": "uniform"
+            },
+            {
+              "label": "Exponential",
+              "module_id": "exponential"
+            },
+            {
+              "label": "Gamma",
+              "module_id": "gamma"
+            },
+            {
+              "label": "Beta",
+              "module_id": "beta"
+            },
+            {
+              "label": "Dirichlet",
+              "module_id": "dirichlet"
+            },
+            {
+              "label": "Weibull",
+              "module_id": "weibull"
+            },
+            {
+              "label": "Laplace",
+              "module_id": "laplace"
+            },
+            {
+              "label": "Student's t",
+              "module_id": "student-s-t"
+            }
+          ]
+        },
+        {
+          "label": "Multivariate Distributions",
+          "id": "multivariate-distributions",
+          "children": [
+            {
+              "label": "Multivariate Gaussian",
+              "module_id": "multivariate-gaussian"
+            },
+            {
+              "label": "Multivariate Student's t",
+              "module_id": "multivariate-student-s-t"
+            },
+            {
+              "label": "Copula Models",
+              "module_id": "copula-models"
+            }
+          ]
+        },
+        {
+          "label": "Mixture Models",
+          "id": "mixture-models",
+          "children": [
+            {
+              "label": "Gaussian Mixture Model (GMM)",
+              "module_id": "gaussian-mixture-model-gmm"
+            },
+            {
+              "label": "Bernoulli Mixture Model",
+              "module_id": "bernoulli-mixture-model"
+            },
+            {
+              "label": "Poisson Mixture Model",
+              "module_id": "poisson-mixture-model"
+            },
+            {
+              "label": "Student's t Mixture Model",
+              "module_id": "student-s-t-mixture-model"
+            },
+            {
+              "label": "Mixture of Experts",
+              "module_id": "mixture-of-experts"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "label": "Probabilistic Graphical Models (PGM)",
+      "id": "probabilistic-graphical-models-pgm",
+      "children": [
+        {
+          "label": "Directed Graphical Models",
+          "id": "directed-graphical-models",
+          "children": [
+            {
+              "label": "Bayesian Networks",
+              "module_id": "bayesian-networks"
+            },
+            {
+              "label": "Naive Bayes",
+              "module_id": "naive-bayes"
+            },
+            {
+              "label": "Hidden Markov Models (HMM)",
+              "module_id": "hidden-markov-models-hmm"
+            },
+            {
+              "label": "Dynamic Bayesian Networks",
+              "module_id": "dynamic-bayesian-networks"
+            },
+            {
+              "label": "Deep Belief Networks",
+              "module_id": "deep-belief-networks"
+            }
+          ]
+        },
+        {
+          "label": "Undirected Graphical Models",
+          "id": "undirected-graphical-models",
+          "children": [
+            {
+              "label": "Markov Random Fields (MRF)",
+              "module_id": "markov-random-fields-mrf"
+            },
+            {
+              "label": "Conditional Random Fields (CRF)",
+              "module_id": "conditional-random-fields-crf"
+            },
+            {
+              "label": "Ising Models",
+              "module_id": "ising-models"
+            },
+            {
+              "label": "Boltzmann Machines",
+              "module_id": "boltzmann-machines"
+            },
+            {
+              "label": "Restricted Boltzmann Machines",
+              "module_id": "restricted-boltzmann-machines"
+            },
+            {
+              "label": "Deep Boltzmann Machines",
+              "module_id": "deep-boltzmann-machines"
+            }
+          ]
+        },
+        {
+          "label": "Factor Graph Representations",
+          "module_id": "factor-graph-representations"
+        }
+      ]
+    },
+    {
+      "label": "Probabilistic Latent Variable Models",
+      "id": "probabilistic-latent-variable-models",
+      "children": [
+        {
+          "label": "Discrete Latent Variable Models",
+          "id": "discrete-latent-variable-models",
+          "children": [
+            {
+              "label": "Finite Mixture Models",
+              "module_id": "finite-mixture-models"
+            },
+            {
+              "label": "Hidden Markov Models",
+              "module_id": "hidden-markov-models-hmm"
+            }
+          ]
+        },
+        {
+          "label": "Continuous Latent Variable Models",
+          "id": "continuous-latent-variable-models",
+          "children": [
+            {
+              "label": "Factor Analysis",
+              "module_id": "factor-analysis"
+            },
+            {
+              "label": "Probabilistic PCA",
+              "module_id": "probabilistic-pca"
+            },
+            {
+              "label": "Probabilistic ICA",
+              "module_id": "probabilistic-ica"
+            },
+            {
+              "label": "Gaussian Process Latent Models",
+              "module_id": "gaussian-process-latent-models"
+            }
+          ]
+        },
+        {
+          "label": "Topic Models",
+          "id": "topic-models",
+          "children": [
+            {
+              "label": "Probabilistic LSA",
+              "module_id": "probabilistic-lsa"
+            },
+            {
+              "label": "Latent Dirichlet Allocation",
+              "module_id": "latent-dirichlet-allocation"
+            },
+            {
+              "label": "Hierarchical Topic Models",
+              "module_id": "hierarchical-topic-models"
+            }
+          ]
+        },
+        {
+          "label": "Deep Latent Variable Models",
+          "id": "deep-latent-variable-models",
+          "children": [
+            {
+              "label": "Variational Autoencoder (VAE)",
+              "module_id": "variational-autoencoder-vae"
+            },
+            {
+              "label": "Conditional VAE",
+              "module_id": "conditional-vae"
+            },
+            {
+              "label": "Beta-VAE",
+              "module_id": "beta-vae"
+            },
+            {
+              "label": "Hierarchical VAE",
+              "module_id": "hierarchical-vae"
+            },
+            {
+              "label": "Deep Latent Gaussian Models",
+              "module_id": "deep-latent-gaussian-models"
+            },
+            {
+              "label": "Deep Belief Networks",
+              "module_id": "deep-belief-networks"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "label": "Bayesian Models",
+      "id": "bayesian-models",
+      "children": [
+        {
+          "label": "Bayesian Parametric Models",
+          "id": "bayesian-parametric-models",
+          "children": [
+            {
+              "label": "Bayesian Linear Regression",
+              "module_id": "bayesian-linear-regression"
+            },
+            {
+              "label": "Bayesian Logistic Regression",
+              "module_id": "bayesian-logistic-regression"
+            },
+            {
+              "label": "Bayesian Mixture Models",
+              "module_id": "bayesian-mixture-models"
+            },
+            {
+              "label": "Bayesian Hierarchical Models",
+              "module_id": "bayesian-hierarchical-models"
+            }
+          ]
+        },
+        {
+          "label": "Bayesian Nonparametric Models",
+          "id": "bayesian-nonparametric-models",
+          "children": [
+            {
+              "label": "Dirichlet Process",
+              "module_id": "dirichlet-process"
+            },
+            {
+              "label": "Dirichlet Process Mixture Model",
+              "module_id": "dirichlet-process-mixture-model"
+            },
+            {
+              "label": "Gaussian Process",
+              "module_id": "gaussian-process"
+            },
+            {
+              "label": "Indian Buffet Process",
+              "module_id": "indian-buffet-process"
+            },
+            {
+              "label": "Pitman-Yor Process",
+              "module_id": "pitman-yor-process"
+            }
+          ]
+        },
+        {
+          "label": "Bayesian Deep Learning",
+          "id": "bayesian-deep-learning",
+          "children": [
+            {
+              "label": "Bayesian Neural Networks",
+              "module_id": "bayesian-neural-networks"
+            },
+            {
+              "label": "Deep Gaussian Processes",
+              "module_id": "deep-gaussian-processes"
+            },
+            {
+              "label": "Bayesian Deep Generative Models",
+              "module_id": "bayesian-deep-generative-models"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "label": "Sequential Probabilistic Models",
+      "id": "sequential-probabilistic-models",
+      "children": [
+        {
+          "label": "Markov Models",
+          "id": "markov-models",
+          "children": [
+            {
+              "label": "Markov Chains",
+              "module_id": "markov-chains"
+            },
+            {
+              "label": "Hidden Markov Models",
+              "module_id": "hidden-markov-models-hmm"
+            },
+            {
+              "label": "Higher-Order Markov Models",
+              "module_id": "higher-order-markov-models"
+            }
+          ]
+        },
+        {
+          "label": "Autoregressive Models",
+          "id": "autoregressive-models",
+          "children": [
+            {
+              "label": "Statistical AR Models",
+              "module_id": "statistical-ar-models"
+            },
+            {
+              "label": "ARMA",
+              "module_id": "arma"
+            },
+            {
+              "label": "ARIMA",
+              "module_id": "arima"
+            },
+            {
+              "label": "SARIMA",
+              "module_id": "sarima"
+            },
+            {
+              "label": "NADE",
+              "module_id": "nade"
+            },
+            {
+              "label": "MADE",
+              "module_id": "made"
+            },
+            {
+              "label": "PixelCNN",
+              "module_id": "pixelcnn"
+            },
+            {
+              "label": "PixelRNN",
+              "module_id": "pixelrnn"
+            },
+            {
+              "label": "Autoregressive Transformers",
+              "module_id": "autoregressive-transformers"
+            }
+          ]
+        },
+        {
+          "label": "Probabilistic State-Space Models",
+          "id": "probabilistic-state-space-models",
+          "children": [
+            {
+              "label": "Linear Gaussian State-Space",
+              "module_id": "linear-gaussian-state-space"
+            },
+            {
+              "label": "Nonlinear State-Space",
+              "module_id": "nonlinear-state-space"
+            },
+            {
+              "label": "Switching State-Space",
+              "module_id": "switching-state-space"
+            },
+            {
+              "label": "Deep State-Space Models",
+              "module_id": "deep-state-space-models"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "label": "Nonparametric Density Models",
+      "id": "nonparametric-density-models",
+      "children": [
+        {
+          "label": "Kernel Density Estimation (KDE)",
+          "module_id": "kernel-density-estimation-kde"
+        },
+        {
+          "label": "Histogram Density Estimation",
+          "module_id": "histogram-density-estimation"
+        },
+        {
+          "label": "KNN Density Estimation",
+          "module_id": "knn-density-estimation"
+        },
+        {
+          "label": "Dirichlet Process Mixtures",
+          "module_id": "dirichlet-process-mixture-model"
+        }
+      ]
+    },
+    {
+      "label": "Probabilistic Discriminative Models",
+      "id": "probabilistic-discriminative-models",
+      "children": [
+        {
+          "label": "Logistic Regression",
+          "module_id": "logistic-regression"
+        },
+        {
+          "label": "Softmax Regression",
+          "module_id": "softmax-regression"
+        },
+        {
+          "label": "Probit Regression",
+          "module_id": "probit-regression"
+        },
+        {
+          "label": "Conditional Random Fields",
+          "module_id": "conditional-random-fields-crf"
+        },
+        {
+          "label": "Gaussian Process Classification",
+          "module_id": "gaussian-process-classification"
+        },
+        {
+          "label": "Probabilistic Neural Classifiers",
+          "module_id": "probabilistic-neural-classifiers"
+        }
+      ]
+    },
+    {
+      "label": "Deep Probabilistic Generative Models",
+      "id": "deep-probabilistic-generative-models",
+      "children": [
+        {
+          "label": "Neural Autoregressive Models",
+          "id": "neural-autoregressive-models",
+          "children": [
+            {
+              "label": "NADE",
+              "module_id": "nade"
+            },
+            {
+              "label": "MADE",
+              "module_id": "made"
+            },
+            {
+              "label": "PixelCNN",
+              "module_id": "pixelcnn"
+            },
+            {
+              "label": "GPT-style Models",
+              "module_id": "gpt-style-models"
+            }
+          ]
+        },
+        {
+          "label": "Normalizing Flow Models",
+          "id": "normalizing-flow-models",
+          "children": [
+            {
+              "label": "NICE",
+              "module_id": "nice"
+            },
+            {
+              "label": "RealNVP",
+              "module_id": "realnvp"
+            },
+            {
+              "label": "Glow",
+              "module_id": "glow"
+            },
+            {
+              "label": "MAF",
+              "module_id": "maf"
+            },
+            {
+              "label": "IAF",
+              "module_id": "iaf"
+            },
+            {
+              "label": "Neural Spline Flows",
+              "module_id": "neural-spline-flows"
+            },
+            {
+              "label": "Continuous Normalizing Flows",
+              "module_id": "continuous-normalizing-flows"
+            }
+          ]
+        },
+        {
+          "label": "Variational Latent Variable Models",
+          "id": "variational-latent-variable-models",
+          "children": [
+            {
+              "label": "VAE",
+              "module_id": "variational-autoencoder-vae"
+            },
+            {
+              "label": "CVAE",
+              "module_id": "conditional-vae"
+            },
+            {
+              "label": "Hierarchical VAE",
+              "module_id": "hierarchical-vae"
+            }
+          ]
+        },
+        {
+          "label": "Probabilistic Energy-Based Models",
+          "id": "probabilistic-energy-based-models",
+          "children": [
+            {
+              "label": "Boltzmann Machines",
+              "module_id": "boltzmann-machines"
+            },
+            {
+              "label": "RBM",
+              "module_id": "restricted-boltzmann-machines"
+            },
+            {
+              "label": "Deep Energy-Based Models",
+              "module_id": "deep-energy-based-models"
+            }
+          ]
+        },
+        {
+          "label": "Diffusion and Score-Based Models",
+          "id": "diffusion-and-score-based-models",
+          "children": [
+            {
+              "label": "DDPM",
+              "module_id": "ddpm"
+            },
+            {
+              "label": "Score-Based SDE",
+              "module_id": "score-based-sde"
+            },
+            {
+              "label": "Latent Diffusion",
+              "module_id": "latent-diffusion"
+            },
+            {
+              "label": "Discrete Diffusion",
+              "module_id": "discrete-diffusion"
+            }
+          ]
+        },
+        {
+          "label": "Implicit Probabilistic Generators",
+          "id": "implicit-probabilistic-generators",
+          "children": [
+            {
+              "label": "GAN",
+              "module_id": "gan"
+            },
+            {
+              "label": "Conditional GAN",
+              "module_id": "conditional-gan"
+            },
+            {
+              "label": "Wasserstein GAN",
+              "module_id": "wasserstein-gan"
+            },
+            {
+              "label": "Other Implicit Samplers",
+              "module_id": "other-implicit-samplers"
+            }
+          ]
+        },
+        {
+          "label": "Probability Transport Models",
+          "id": "probability-transport-models",
+          "children": [
+            {
+              "label": "Flow Matching",
+              "module_id": "flow-matching"
+            },
+            {
+              "label": "Rectified Flow",
+              "module_id": "rectified-flow"
+            },
+            {
+              "label": "Schrodinger Bridge Models",
+              "module_id": "schrodinger-bridge-models"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "label": "Stochastic Process Models",
+      "id": "stochastic-process-models",
+      "children": [
+        {
+          "label": "Gaussian Processes",
+          "module_id": "gaussian-process"
+        },
+        {
+          "label": "Markov Processes",
+          "module_id": "markov-processes"
+        },
+        {
+          "label": "Poisson Processes",
+          "module_id": "poisson-processes"
+        },
+        {
+          "label": "Wiener Processes",
+          "module_id": "wiener-processes"
+        },
+        {
+          "label": "Levy Processes",
+          "module_id": "levy-processes"
+        },
+        {
+          "label": "Stochastic Differential Equations",
+          "module_id": "stochastic-differential-equations"
+        },
+        {
+          "label": "Point Process Models",
+          "module_id": "point-process-models"
+        }
+      ]
+    }
+  ],
+  "modules": [
+    {
+      "id": "bernoulli",
+      "name": "Bernoulli",
+      "aliases": [],
+      "status": "planned"
+    },
+    {
+      "id": "binomial",
+      "name": "Binomial",
+      "aliases": [],
+      "status": "planned"
+    },
+    {
+      "id": "categorical",
+      "name": "Categorical",
+      "aliases": [],
+      "status": "planned"
+    },
+    {
+      "id": "multinomial",
+      "name": "Multinomial",
+      "aliases": [],
+      "status": "planned"
+    },
+    {
+      "id": "poisson",
+      "name": "Poisson",
+      "aliases": [],
+      "status": "planned"
+    },
+    {
+      "id": "geometric",
+      "name": "Geometric",
+      "aliases": [],
+      "status": "planned"
+    },
+    {
+      "id": "gaussian-normal",
+      "name": "Gaussian (Normal)",
+      "aliases": [],
+      "status": "planned"
+    },
+    {
+      "id": "uniform",
+      "name": "Uniform",
+      "aliases": [],
+      "status": "planned"
+    },
+    {
+      "id": "exponential",
+      "name": "Exponential",
+      "aliases": [],
+      "status": "planned"
+    },
+    {
+      "id": "gamma",
+      "name": "Gamma",
+      "aliases": [],
+      "status": "planned"
+    },
+    {
+      "id": "beta",
+      "name": "Beta",
+      "aliases": [],
+      "status": "planned"
+    },
+    {
+      "id": "dirichlet",
+      "name": "Dirichlet",
+      "aliases": [],
+      "status": "planned"
+    },
+    {
+      "id": "weibull",
+      "name": "Weibull",
+      "aliases": [],
+      "status": "planned"
+    },
+    {
+      "id": "laplace",
+      "name": "Laplace",
+      "aliases": [],
+      "status": "planned"
+    },
+    {
+      "id": "student-s-t",
+      "name": "Student's t",
+      "aliases": [],
+      "status": "planned"
+    },
+    {
+      "id": "multivariate-gaussian",
+      "name": "Multivariate Gaussian",
+      "aliases": [],
+      "status": "planned"
+    },
+    {
+      "id": "multivariate-student-s-t",
+      "name": "Multivariate Student's t",
+      "aliases": [],
+      "status": "planned"
+    },
+    {
+      "id": "copula-models",
+      "name": "Copula Models",
+      "aliases": [],
+      "status": "planned"
+    },
+    {
+      "id": "gaussian-mixture-model-gmm",
+      "name": "Gaussian Mixture Model (GMM)",
+      "aliases": [],
+      "status": "planned"
+    },
+    {
+      "id": "bernoulli-mixture-model",
+      "name": "Bernoulli Mixture Model",
+      "aliases": [],
+      "status": "planned"
+    },
+    {
+      "id": "poisson-mixture-model",
+      "name": "Poisson Mixture Model",
+      "aliases": [],
+      "status": "planned"
+    },
+    {
+      "id": "student-s-t-mixture-model",
+      "name": "Student's t Mixture Model",
+      "aliases": [],
+      "status": "planned"
+    },
+    {
+      "id": "mixture-of-experts",
+      "name": "Mixture of Experts",
+      "aliases": [],
+      "status": "planned"
+    },
+    {
+      "id": "bayesian-networks",
+      "name": "Bayesian Networks",
+      "aliases": [],
+      "status": "planned"
+    },
+    {
+      "id": "naive-bayes",
+      "name": "Naive Bayes",
+      "aliases": [],
+      "status": "planned"
+    },
+    {
+      "id": "hidden-markov-models-hmm",
+      "name": "Hidden Markov Models (HMM)",
+      "aliases": [
+        "Hidden Markov Models"
+      ],
+      "status": "planned"
+    },
+    {
+      "id": "dynamic-bayesian-networks",
+      "name": "Dynamic Bayesian Networks",
+      "aliases": [],
+      "status": "planned"
+    },
+    {
+      "id": "deep-belief-networks",
+      "name": "Deep Belief Networks",
+      "aliases": [],
+      "status": "planned"
+    },
+    {
+      "id": "markov-random-fields-mrf",
+      "name": "Markov Random Fields (MRF)",
+      "aliases": [],
+      "status": "planned"
+    },
+    {
+      "id": "conditional-random-fields-crf",
+      "name": "Conditional Random Fields (CRF)",
+      "aliases": [
+        "Conditional Random Fields"
+      ],
+      "status": "planned"
+    },
+    {
+      "id": "ising-models",
+      "name": "Ising Models",
+      "aliases": [],
+      "status": "planned"
+    },
+    {
+      "id": "boltzmann-machines",
+      "name": "Boltzmann Machines",
+      "aliases": [],
+      "status": "planned"
+    },
+    {
+      "id": "restricted-boltzmann-machines",
+      "name": "Restricted Boltzmann Machines",
+      "aliases": [
+        "RBM"
+      ],
+      "status": "planned"
+    },
+    {
+      "id": "deep-boltzmann-machines",
+      "name": "Deep Boltzmann Machines",
+      "aliases": [],
+      "status": "planned"
+    },
+    {
+      "id": "factor-graph-representations",
+      "name": "Factor Graph Representations",
+      "aliases": [],
+      "status": "planned"
+    },
+    {
+      "id": "finite-mixture-models",
+      "name": "Finite Mixture Models",
+      "aliases": [],
+      "status": "planned"
+    },
+    {
+      "id": "factor-analysis",
+      "name": "Factor Analysis",
+      "aliases": [],
+      "status": "planned"
+    },
+    {
+      "id": "probabilistic-pca",
+      "name": "Probabilistic PCA",
+      "aliases": [],
+      "status": "planned"
+    },
+    {
+      "id": "probabilistic-ica",
+      "name": "Probabilistic ICA",
+      "aliases": [],
+      "status": "planned"
+    },
+    {
+      "id": "gaussian-process-latent-models",
+      "name": "Gaussian Process Latent Models",
+      "aliases": [],
+      "status": "planned"
+    },
+    {
+      "id": "probabilistic-lsa",
+      "name": "Probabilistic LSA",
+      "aliases": [],
+      "status": "planned"
+    },
+    {
+      "id": "latent-dirichlet-allocation",
+      "name": "Latent Dirichlet Allocation",
+      "aliases": [],
+      "status": "planned"
+    },
+    {
+      "id": "hierarchical-topic-models",
+      "name": "Hierarchical Topic Models",
+      "aliases": [],
+      "status": "planned"
+    },
+    {
+      "id": "variational-autoencoder-vae",
+      "name": "Variational Autoencoder (VAE)",
+      "aliases": [
+        "VAE"
+      ],
+      "status": "planned"
+    },
+    {
+      "id": "conditional-vae",
+      "name": "Conditional VAE",
+      "aliases": [
+        "CVAE"
+      ],
+      "status": "planned"
+    },
+    {
+      "id": "beta-vae",
+      "name": "Beta-VAE",
+      "aliases": [],
+      "status": "planned"
+    },
+    {
+      "id": "hierarchical-vae",
+      "name": "Hierarchical VAE",
+      "aliases": [],
+      "status": "planned"
+    },
+    {
+      "id": "deep-latent-gaussian-models",
+      "name": "Deep Latent Gaussian Models",
+      "aliases": [],
+      "status": "planned"
+    },
+    {
+      "id": "bayesian-linear-regression",
+      "name": "Bayesian Linear Regression",
+      "aliases": [],
+      "status": "planned"
+    },
+    {
+      "id": "bayesian-logistic-regression",
+      "name": "Bayesian Logistic Regression",
+      "aliases": [],
+      "status": "planned"
+    },
+    {
+      "id": "bayesian-mixture-models",
+      "name": "Bayesian Mixture Models",
+      "aliases": [],
+      "status": "planned"
+    },
+    {
+      "id": "bayesian-hierarchical-models",
+      "name": "Bayesian Hierarchical Models",
+      "aliases": [],
+      "status": "planned"
+    },
+    {
+      "id": "dirichlet-process",
+      "name": "Dirichlet Process",
+      "aliases": [],
+      "status": "planned"
+    },
+    {
+      "id": "dirichlet-process-mixture-model",
+      "name": "Dirichlet Process Mixture Model",
+      "aliases": [
+        "Dirichlet Process Mixtures"
+      ],
+      "status": "planned"
+    },
+    {
+      "id": "gaussian-process",
+      "name": "Gaussian Process",
+      "aliases": [
+        "Gaussian Processes"
+      ],
+      "status": "planned"
+    },
+    {
+      "id": "indian-buffet-process",
+      "name": "Indian Buffet Process",
+      "aliases": [],
+      "status": "planned"
+    },
+    {
+      "id": "pitman-yor-process",
+      "name": "Pitman-Yor Process",
+      "aliases": [],
+      "status": "planned"
+    },
+    {
+      "id": "bayesian-neural-networks",
+      "name": "Bayesian Neural Networks",
+      "aliases": [],
+      "status": "planned"
+    },
+    {
+      "id": "deep-gaussian-processes",
+      "name": "Deep Gaussian Processes",
+      "aliases": [],
+      "status": "planned"
+    },
+    {
+      "id": "bayesian-deep-generative-models",
+      "name": "Bayesian Deep Generative Models",
+      "aliases": [],
+      "status": "planned"
+    },
+    {
+      "id": "markov-chains",
+      "name": "Markov Chains",
+      "aliases": [],
+      "status": "planned"
+    },
+    {
+      "id": "higher-order-markov-models",
+      "name": "Higher-Order Markov Models",
+      "aliases": [],
+      "status": "planned"
+    },
+    {
+      "id": "statistical-ar-models",
+      "name": "Statistical AR Models",
+      "aliases": [],
+      "status": "planned"
+    },
+    {
+      "id": "arma",
+      "name": "ARMA",
+      "aliases": [],
+      "status": "planned"
+    },
+    {
+      "id": "arima",
+      "name": "ARIMA",
+      "aliases": [],
+      "status": "planned"
+    },
+    {
+      "id": "sarima",
+      "name": "SARIMA",
+      "aliases": [],
+      "status": "planned"
+    },
+    {
+      "id": "nade",
+      "name": "NADE",
+      "aliases": [],
+      "status": "planned"
+    },
+    {
+      "id": "made",
+      "name": "MADE",
+      "aliases": [],
+      "status": "planned"
+    },
+    {
+      "id": "pixelcnn",
+      "name": "PixelCNN",
+      "aliases": [],
+      "status": "planned"
+    },
+    {
+      "id": "pixelrnn",
+      "name": "PixelRNN",
+      "aliases": [],
+      "status": "planned"
+    },
+    {
+      "id": "autoregressive-transformers",
+      "name": "Autoregressive Transformers",
+      "aliases": [],
+      "status": "planned"
+    },
+    {
+      "id": "linear-gaussian-state-space",
+      "name": "Linear Gaussian State-Space",
+      "aliases": [],
+      "status": "planned"
+    },
+    {
+      "id": "nonlinear-state-space",
+      "name": "Nonlinear State-Space",
+      "aliases": [],
+      "status": "planned"
+    },
+    {
+      "id": "switching-state-space",
+      "name": "Switching State-Space",
+      "aliases": [],
+      "status": "planned"
+    },
+    {
+      "id": "deep-state-space-models",
+      "name": "Deep State-Space Models",
+      "aliases": [],
+      "status": "planned"
+    },
+    {
+      "id": "kernel-density-estimation-kde",
+      "name": "Kernel Density Estimation (KDE)",
+      "aliases": [],
+      "status": "planned"
+    },
+    {
+      "id": "histogram-density-estimation",
+      "name": "Histogram Density Estimation",
+      "aliases": [],
+      "status": "planned"
+    },
+    {
+      "id": "knn-density-estimation",
+      "name": "KNN Density Estimation",
+      "aliases": [],
+      "status": "planned"
+    },
+    {
+      "id": "logistic-regression",
+      "name": "Logistic Regression",
+      "aliases": [],
+      "status": "planned"
+    },
+    {
+      "id": "softmax-regression",
+      "name": "Softmax Regression",
+      "aliases": [],
+      "status": "planned"
+    },
+    {
+      "id": "probit-regression",
+      "name": "Probit Regression",
+      "aliases": [],
+      "status": "planned"
+    },
+    {
+      "id": "gaussian-process-classification",
+      "name": "Gaussian Process Classification",
+      "aliases": [],
+      "status": "planned"
+    },
+    {
+      "id": "probabilistic-neural-classifiers",
+      "name": "Probabilistic Neural Classifiers",
+      "aliases": [],
+      "status": "planned"
+    },
+    {
+      "id": "gpt-style-models",
+      "name": "GPT-style Models",
+      "aliases": [],
+      "status": "planned"
+    },
+    {
+      "id": "nice",
+      "name": "NICE",
+      "aliases": [],
+      "status": "planned"
+    },
+    {
+      "id": "realnvp",
+      "name": "RealNVP",
+      "aliases": [],
+      "status": "planned"
+    },
+    {
+      "id": "glow",
+      "name": "Glow",
+      "aliases": [],
+      "status": "planned"
+    },
+    {
+      "id": "maf",
+      "name": "MAF",
+      "aliases": [],
+      "status": "planned"
+    },
+    {
+      "id": "iaf",
+      "name": "IAF",
+      "aliases": [],
+      "status": "planned"
+    },
+    {
+      "id": "neural-spline-flows",
+      "name": "Neural Spline Flows",
+      "aliases": [],
+      "status": "planned"
+    },
+    {
+      "id": "continuous-normalizing-flows",
+      "name": "Continuous Normalizing Flows",
+      "aliases": [],
+      "status": "planned"
+    },
+    {
+      "id": "deep-energy-based-models",
+      "name": "Deep Energy-Based Models",
+      "aliases": [],
+      "status": "planned"
+    },
+    {
+      "id": "ddpm",
+      "name": "DDPM",
+      "aliases": [],
+      "status": "planned"
+    },
+    {
+      "id": "score-based-sde",
+      "name": "Score-Based SDE",
+      "aliases": [],
+      "status": "planned"
+    },
+    {
+      "id": "latent-diffusion",
+      "name": "Latent Diffusion",
+      "aliases": [],
+      "status": "planned"
+    },
+    {
+      "id": "discrete-diffusion",
+      "name": "Discrete Diffusion",
+      "aliases": [],
+      "status": "planned"
+    },
+    {
+      "id": "gan",
+      "name": "GAN",
+      "aliases": [],
+      "status": "planned"
+    },
+    {
+      "id": "conditional-gan",
+      "name": "Conditional GAN",
+      "aliases": [],
+      "status": "planned"
+    },
+    {
+      "id": "wasserstein-gan",
+      "name": "Wasserstein GAN",
+      "aliases": [],
+      "status": "planned"
+    },
+    {
+      "id": "other-implicit-samplers",
+      "name": "Other Implicit Samplers",
+      "aliases": [],
+      "status": "planned"
+    },
+    {
+      "id": "flow-matching",
+      "name": "Flow Matching",
+      "aliases": [],
+      "status": "planned"
+    },
+    {
+      "id": "rectified-flow",
+      "name": "Rectified Flow",
+      "aliases": [],
+      "status": "planned"
+    },
+    {
+      "id": "schrodinger-bridge-models",
+      "name": "Schrodinger Bridge Models",
+      "aliases": [],
+      "status": "planned"
+    },
+    {
+      "id": "markov-processes",
+      "name": "Markov Processes",
+      "aliases": [],
+      "status": "planned"
+    },
+    {
+      "id": "poisson-processes",
+      "name": "Poisson Processes",
+      "aliases": [],
+      "status": "planned"
+    },
+    {
+      "id": "wiener-processes",
+      "name": "Wiener Processes",
+      "aliases": [],
+      "status": "planned"
+    },
+    {
+      "id": "levy-processes",
+      "name": "Levy Processes",
+      "aliases": [],
+      "status": "planned"
+    },
+    {
+      "id": "stochastic-differential-equations",
+      "name": "Stochastic Differential Equations",
+      "aliases": [],
+      "status": "planned"
+    },
+    {
+      "id": "point-process-models",
+      "name": "Point Process Models",
+      "aliases": [],
+      "status": "planned"
+    }
+  ],
+  "counts": {
+    "major_categories": 9,
+    "category_nodes": 32,
+    "leaf_occurrences": 123,
+    "canonical_leaf_modules": 109
+  },
+  "notes": [
+    "Preserve original labels and placements. Canonical aliases are proposed, not ratified. Category nodes also require learning content. Dirichlet is multivariate; DBNs are hybrid graphical models; retain source placements and add scientific annotations. GPT-style models are related to autoregressive Transformers, not automatically equivalent."
+  ]
+}

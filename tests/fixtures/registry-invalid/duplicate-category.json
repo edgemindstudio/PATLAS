@@ -1,0 +1,7 @@
+{
+  "description": "Two categories share the same identifier.",
+  "expectedIssueCode": "duplicate-category",
+  "mutations": [
+    { "op": "setById", "collection": "categories", "id": "continuous-distributions", "field": "id", "value": "discrete-distributions" }
+  ]
+}

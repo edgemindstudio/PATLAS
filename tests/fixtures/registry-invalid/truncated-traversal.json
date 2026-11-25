@@ -1,0 +1,7 @@
+{
+  "description": "A baseline placement is dropped, breaking ordered traversal parity.",
+  "expectedIssueCode": "traversal-length",
+  "mutations": [
+    { "op": "removeById", "collection": "placements", "id": "discrete-distributions--bernoulli" }
+  ]
+}

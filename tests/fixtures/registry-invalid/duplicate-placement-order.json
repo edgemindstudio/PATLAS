@@ -1,0 +1,7 @@
+{
+  "description": "Two placements share a sibling order inside one category.",
+  "expectedIssueCode": "duplicate-placement-order",
+  "mutations": [
+    { "op": "setById", "collection": "placements", "id": "discrete-distributions--binomial", "field": "order", "value": 0 }
+  ]
+}

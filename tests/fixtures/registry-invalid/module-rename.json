@@ -1,0 +1,7 @@
+{
+  "description": "Canonical module title is renamed instead of preserved.",
+  "expectedIssueCode": "module-rename",
+  "mutations": [
+    { "op": "setById", "collection": "modules", "id": "gaussian-normal", "field": "name", "value": "Normal" }
+  ]
+}

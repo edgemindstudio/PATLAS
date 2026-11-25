@@ -1,0 +1,8 @@
+{
+  "description": "Two categories become each other's parent, creating a hierarchy cycle.",
+  "expectedIssueCode": "category-cycle",
+  "mutations": [
+    { "op": "setById", "collection": "categories", "id": "continuous-distributions", "field": "parent", "value": "discrete-distributions" },
+    { "op": "setById", "collection": "categories", "id": "discrete-distributions", "field": "parent", "value": "continuous-distributions" }
+  ]
+}

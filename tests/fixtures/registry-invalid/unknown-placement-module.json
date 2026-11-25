@@ -1,0 +1,7 @@
+{
+  "description": "Placement references a canonical module that does not exist.",
+  "expectedIssueCode": "unknown-placement-module",
+  "mutations": [
+    { "op": "setById", "collection": "placements", "id": "discrete-distributions--bernoulli", "field": "module_id", "value": "no-such-module" }
+  ]
+}

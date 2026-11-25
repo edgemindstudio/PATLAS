@@ -1,0 +1,150 @@
+{
+  "schemaVersion": "1.0",
+  "id": "gaussian-normal",
+  "title": "Gaussian (Normal) Distribution",
+  "kind": "distribution",
+  "status": "partial",
+  "statusNote": "Reference slice implemented and locally verified. Independent scientific and educational review and Founder acceptance are pending, so this module is not accepted.",
+  "summary": "A continuous, symmetric, two-parameter distribution on the real line, used as the default model for measurement noise and as a building block for many larger probabilistic models.",
+  "aliases": ["Gaussian", "Normal distribution", "Normal"],
+  "labId": "gaussian-normal",
+  "sections": [
+    {
+      "id": "definition",
+      "title": "Plain-language definition",
+      "markdown": "The **Gaussian distribution** — also called the **normal distribution** — is a continuous probability distribution on the whole real line. It is fixed by two numbers: a location parameter **μ** (the mean) and a scale parameter **σ > 0** (the standard deviation).\n\nIts probability *density* is a symmetric bell centred at μ: values near μ are more plausible than values far away, and the curve falls off smoothly in both directions. Because X is continuous, the probability of any exact value is zero. We work with density, and probabilities come from areas under the curve.\n\nA random variable X with this distribution is written X ~ N(μ, σ²). The second parameter in that notation is the **variance**, not the standard deviation."
+    },
+    {
+      "id": "motivation",
+      "title": "Problem and motivation",
+      "markdown": "Many quantities are modelled as a central value plus symmetric noise: a measured length, a sensor reading, a residual in a regression, or the average of many small independent effects. The Gaussian gives a compact, mathematically tractable description of that situation.\n\nThe **central limit theorem** explains part of its ubiquity: suitably standardised sums or averages of many independent contributions approach a Gaussian distribution under mild conditions. This is a statement about the *scaled average*, not a guarantee that raw data are Gaussian.\n\nThat default status is also the main risk. Real data can be skewed, bounded, multi-modal, discrete or heavy-tailed. The Gaussian is a model with assumptions, not a universal description of randomness."
+    },
+    {
+      "id": "visual-intuition",
+      "title": "Visual intuition",
+      "markdown": "Use the laboratory below. **μ** slides the curve left and right without changing its shape. **σ** stretches or compresses the curve horizontally: larger σ means more spread and a lower peak, because the total area under a density curve must remain exactly 1.\n\nThe plot shows the density on the fixed window x ∈ [−12, 12]. The Gaussian has no finite support: the curve continues beyond the window toward zero but never reaches it. The window is a display choice, not a claim that values outside it are impossible.\n\nThe shaded-looking intuition to keep in mind is **area**, not height. The area between μ − σ and μ + σ is about 68.27% of the total probability; between μ − 2σ and μ + 2σ about 95.45%; between μ − 3σ and μ + 3σ about 99.73%."
+    },
+    {
+      "id": "structure",
+      "title": "Structure of the model",
+      "markdown": "| Component | Gaussian |\n| --- | --- |\n| Random variable | X ∈ ℝ (continuous) |\n| Parameters | μ ∈ ℝ, σ > 0 |\n| Support | The entire real line, (−∞, ∞) |\n| Density | Symmetric, unimodal, strictly positive everywhere |\n| Mean | E[X] = μ |\n| Variance | Var(X) = σ² |\n| Shape | Determined by σ; no separate skewness or tail parameter |\n| Cumulative distribution | Φ((x − μ) / σ), with no elementary closed form |\n\nThe family is closed under linear transformations: if X ~ N(μ, σ²) then aX + b ~ N(aμ + b, a²σ²). Standardising, Z = (X − μ) / σ, gives the standard normal N(0, 1), whose CDF is written Φ."
+    },
+    {
+      "id": "notation-equations",
+      "title": "Symbols and equations",
+      "markdown": "| Symbol | Meaning |\n| --- | --- |\n| X | The random variable being modelled |\n| x | A particular real value at which the density is evaluated |\n| μ | Location parameter; also the mean |\n| σ | Scale parameter; the standard deviation, in the same units as X |\n| σ² | Variance, in squared units |\n| f(x) | Probability density; not a probability |\n| Φ(z) | Standard normal cumulative distribution function |\n\nDensity integrates to probability: P(a ≤ X ≤ b) = ∫ from a to b of f(x) dx. For a very small interval of width dx, f(x)·dx approximates the probability of landing in it. Density values may exceed 1 when σ is small; probabilities cannot."
+    },
+    {
+      "id": "derivation",
+      "title": "Where the formula comes from",
+      "markdown": "Start from the standard normal density g(z) = C·exp(−z²/2). Requiring total area 1 gives C = 1/√(2π), because the Gaussian integral ∫ exp(−z²/2) dz over the real line equals √(2π) (evaluated by squaring the integral and using polar coordinates).\n\nNow set z = (x − μ)/σ. A change of variables contributes the Jacobian factor 1/σ, so the density of X is (1/σ)·g((x − μ)/σ). Substituting g gives the formula shown above. The exponent measures squared standardised distance from the mean; the prefactor 1/(σ√(2π)) is exactly what keeps the area equal to 1 as σ changes.\n\nThis also shows why the peak height is 1/(σ√(2π)): at x = μ the exponent is zero, so the density reaches its maximum there, and increasing σ lowers that maximum."
+    },
+    {
+      "id": "fitting-inference-sampling",
+      "title": "Fitting, inference and sampling",
+      "markdown": "**Maximum likelihood.** For independent observations x₁, …, xₙ, the log-likelihood is maximised by the sample mean for μ and by the average squared deviation for σ²:\n\n- μ̂ = (1/n) Σ xᵢ\n- σ̂² = (1/n) Σ (xᵢ − μ̂)²\n\nThe variance estimator with denominator **n** is the maximum likelihood estimator. It is biased downward in finite samples; the unbiased sample variance uses denominator **n − 1**. Reporting which denominator is used matters, especially for small n.\n\n**Inference.** A confidence interval for μ uses the standard error σ/√n (with a t correction when σ is estimated from small samples). Bayesian inference combines a prior with the likelihood; a conjugate normal prior yields a normal posterior. Neither procedure is implemented as an interactive laboratory in M001 — the statements here are explanatory.\n\n**Sampling.** Exact samplers exist: inverse-CDF (Box–Muller is a classical transform-based method) and library samplers such as `scipy.stats.norm.rvs`. This milestone does not generate observations in the browser, and the plot contains no simulated data. Sampling behaviour should be studied with a documented seed and a stated sample size."
+    },
+    {
+      "id": "code",
+      "title": "Runnable code",
+      "markdown": "The export below reproduces the **current** parameter snapshot and the same display window using NumPy, SciPy and Matplotlib. `--json` prints the parameters, mean, variance, peak density and the full sampled curve; `--plot PATH` writes a PNG.\n\nThe script is a downloadable, standalone file. Python is **not** executed in the browser, and this repository does not expose an arbitrary code runner. Run it locally in the isolated environment described by `python/requirements.txt`."
+    },
+    {
+      "id": "applications",
+      "title": "Applications",
+      "markdown": "- Measurement-error and sensor-noise models.\n- Residual models inside regression and state-space methods such as the Kalman filter.\n- Components of mixture models and latent-variable models.\n- Initialisations and approximate posteriors in variational methods.\n- Closed-form baselines before trying heavier-tailed or more flexible models.\n\nIn each case the Gaussian is a modelling choice with assumptions. It is often a convenient approximation rather than a literal description of the data-generating process."
+    },
+    {
+      "id": "assumptions-limitations",
+      "title": "Assumptions and limitations",
+      "markdown": "- **Unbounded support.** Any real value has positive density, including impossible negative values for a strictly positive quantity.\n- **Symmetry and a single mode.** Skewed or multi-modal data are poorly represented.\n- **Light tails.** Extreme values are far less likely than under a Student's t or other heavy-tailed model.\n- **Fixed shape.** There is no separate parameter for skewness or tail weight.\n- **Density is not probability.** A density value can exceed 1; only areas are probabilities.\n- **The plotted window is finite.** Truncating the display at ±12 does not truncate the distribution, and the visible area is not evidence of exact normalization.\n- **Fitted parameters are estimates.** They carry uncertainty that this display does not quantify.\n- **No interactive fitting or sampling.** Those topics are explained in text only in M001 and would require their own verified laboratories."
+    },
+    {
+      "id": "knowledge-check",
+      "title": "Knowledge check",
+      "markdown": "1. If σ doubles while μ stays fixed, what happens to the peak height and to the area under the whole curve?\n2. Why can a probability density exceed 1, while a probability cannot?\n3. A fitted model reports σ̂² using denominator n. Is that the unbiased sample variance?\n\n<details><summary>Answers</summary>\n\n1. The peak height halves because it is 1/(σ√(2π)); the total area stays 1.\n2. Density is probability per unit of x. Only its integral over an interval is a probability, and that integral is bounded by 1.\n3. No. The maximum likelihood estimator uses denominator n and is biased downward; the unbiased estimator uses n − 1.\n\n</details>"
+    }
+  ],
+  "equations": [
+    {
+      "id": "pdf",
+      "tex": "f(x) = \\frac{1}{\\sigma\\sqrt{2\\pi}}\\exp\\!\\left(-\\frac{(x-\\mu)^2}{2\\sigma^2}\\right)",
+      "caption": "Gaussian probability density. f(x) is a density, not a probability."
+    },
+    {
+      "id": "mean-variance",
+      "tex": "\\mathbb{E}[X] = \\mu, \\qquad \\operatorname{Var}(X) = \\sigma^2",
+      "caption": "The two parameters are the mean and the variance of the distribution."
+    },
+    {
+      "id": "standardize",
+      "tex": "Z = \\frac{X-\\mu}{\\sigma} \\sim \\mathcal{N}(0,1)",
+      "caption": "Standardisation maps any Gaussian to the standard normal."
+    },
+    {
+      "id": "interval",
+      "tex": "P(\\mu - k\\sigma \\le X \\le \\mu + k\\sigma) = \\Phi(k) - \\Phi(-k)",
+      "caption": "Interval probability from the standard normal CDF; 68.27%, 95.45% and 99.73% for k = 1, 2, 3."
+    }
+  ],
+  "references": [
+    {
+      "id": "casella-berger-2002",
+      "authors": "Casella, G.; Berger, R. L.",
+      "title": "Statistical Inference",
+      "year": 2002,
+      "edition": "2nd",
+      "publisher": "Duxbury",
+      "url": "https://archive.org/details/statisticalinfer0000case",
+      "supports": "Definition, moments, maximum likelihood, unbiased variance."
+    },
+    {
+      "id": "bishop-2006",
+      "authors": "Bishop, C. M.",
+      "title": "Pattern Recognition and Machine Learning",
+      "year": 2006,
+      "publisher": "Springer",
+      "url": "https://link.springer.com/book/10.1007/978-0-387-31073-2",
+      "supports": "Gaussian properties, maximum likelihood, role in larger models."
+    },
+    {
+      "id": "murphy-2022",
+      "authors": "Murphy, K. P.",
+      "title": "Probabilistic Machine Learning: An Introduction",
+      "year": 2022,
+      "publisher": "MIT Press",
+      "url": "https://probml.github.io/pml-book/book1.html",
+      "supports": "Gaussian as a building block; estimation and sampling context."
+    },
+    {
+      "id": "scipy-norm",
+      "authors": "SciPy developers",
+      "title": "scipy.stats.norm — SciPy reference documentation",
+      "year": 2026,
+      "url": "https://docs.scipy.org/doc/scipy/reference/generated/scipy.stats.norm.html",
+      "supports": "Reference implementation used by the exported Python source and verification tests."
+    },
+    {
+      "id": "nist-normal",
+      "authors": "NIST/SEMATECH",
+      "title": "e-Handbook of Statistical Methods: Normal Distribution",
+      "year": 2012,
+      "url": "https://www.itl.nist.gov/div898/handbook/eda/section3/eda3661.htm",
+      "supports": "Density formula and the 68.27/95.45/99.73 interval percentages."
+    }
+  ],
+  "relatedModels": [
+    "student-s-t",
+    "laplace",
+    "uniform",
+    "multivariate-gaussian",
+    "gaussian-mixture-model-gmm",
+    "linear-gaussian-state-space"
+  ],
+  "missingSections": [],
+  "disclosures": [
+    "All MODEL_MODULE_SPEC sections are present, but the module remains PARTIAL until independent review and acceptance.",
+    "Sampling and fitting are explained in text; no interactive sampling or fitting laboratory is included in M001.",
+    "The full relationship graph is planned and not implemented in M001."
+  ]
+}

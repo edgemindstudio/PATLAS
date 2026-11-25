@@ -1,0 +1,8 @@
+{
+  "gaussian-normal": {
+    "status": "partial",
+    "lessonRef": "content/models/gaussian-normal.json",
+    "labIds": ["gaussian-normal"],
+    "statusNote": "Reference slice implemented. Independent scientific and educational review has not been completed, so this module is not accepted."
+  }
+}

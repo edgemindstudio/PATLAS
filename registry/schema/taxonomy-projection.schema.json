@@ -1,0 +1,91 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://patlas.local/schema/taxonomy-projection.schema.json",
+  "title": "PATLAS taxonomy projection candidate",
+  "type": "object",
+  "additionalProperties": true,
+  "required": [
+    "schema_version",
+    "source_sha256",
+    "root",
+    "categories",
+    "placements",
+    "modules"
+  ],
+  "properties": {
+    "schema_version": { "type": "string" },
+    "status": { "type": "string", "enum": ["proposal", "approved"] },
+    "source_sha256": { "type": "string", "pattern": "^[0-9a-f]{64}$" },
+    "root": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["id", "label"],
+      "properties": {
+        "id": { "type": "string", "minLength": 1 },
+        "label": { "type": "string", "minLength": 1 }
+      }
+    },
+    "categories": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["id", "label", "parent", "order"],
+        "properties": {
+          "id": {
+            "type": "string",
+            "pattern": "^[a-z0-9]+(?:-[a-z0-9]+)*$"
+          },
+          "label": { "type": "string", "minLength": 1 },
+          "parent": { "type": "string", "minLength": 1 },
+          "order": { "type": "integer", "minimum": 0 }
+        }
+      }
+    },
+    "placements": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["id", "category_id", "module_id", "label", "order"],
+        "properties": {
+          "id": { "type": "string", "minLength": 1 },
+          "category_id": {
+            "type": "string",
+            "pattern": "^[a-z0-9]+(?:-[a-z0-9]+)*$"
+          },
+          "module_id": {
+            "type": "string",
+            "pattern": "^[a-z0-9]+(?:-[a-z0-9]+)*$"
+          },
+          "label": { "type": "string", "minLength": 1 },
+          "order": { "type": "integer", "minimum": 0 }
+        }
+      }
+    },
+    "modules": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["id", "name", "aliases", "status"],
+        "properties": {
+          "id": {
+            "type": "string",
+            "pattern": "^[a-z0-9]+(?:-[a-z0-9]+)*$"
+          },
+          "name": { "type": "string", "minLength": 1 },
+          "aliases": {
+            "type": "array",
+            "items": { "type": "string", "minLength": 1 },
+            "uniqueItems": true
+          },
+          "status": { "type": "string", "enum": ["planned"] }
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,7 @@
+{
+  "description": "Projection digest does not match the loaded frozen baseline.",
+  "expectedIssueCode": "source-digest",
+  "mutations": [
+    { "op": "set", "path": ["source_sha256"], "value": "0000000000000000000000000000000000000000000000000000000000000000" }
+  ]
+}
