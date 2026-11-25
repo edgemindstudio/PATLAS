@@ -67,3 +67,6 @@ Date: 2026-11-24
 M001_APPLICATION_IMPLEMENTATION_AUTHORIZED=YES
 
 Implementation is authorized only within PATLAS-M001-REL-001.
+
+## Superseding decision continuity — 2026-11-25
+M001 historical release completed. PATLAS-M001-PUB-001, PATLAS-M001-COR-REL-001 and PATLAS-M001-COR-PUB-001 record bounded publication and correction. PATLAS-M001-LAD-001 and PATLAS-M001-FA-001 establish acceptance with EX-001/002; PATLAS-M001-ACC-PUB-001 persisted acceptance records at ba0bc63b643c5e8d093bf2b642d44f10997cf500. See the existing M001 records for exact scope. All 26 post-M001 planning selections are consolidated in [decision register](post-m001/POST_M001_DECISION_REGISTER.md). PATLAS-M002-PD-FA-001 confirms B/A/A planning boundary only. The historical execution boundary above is not a current work release. No M002 execution, residual correction, registry migration, merge, deployment or remote CI authorization.

@@ -77,3 +77,6 @@ have not been executed.
 
 M001_APPLICATION_IMPLEMENTATION_AUTHORIZED=YES
 M001_RELEASE_REFERENCE=PATLAS-M001-REL-001
+
+## Superseding historical readiness note — 2026-11-25
+The preceding environment inspection describes preparation before M001. Subsequent accepted M001 execution installed the declared dependencies and reported 157 passing unique tests (94 Vitest, 58 Playwright, 5 pytest), with no reported failures or skips. See M001_IMPLEMENTATION_EVIDENCE.md, M001_CORRECTION_RETURN.md and M001_LEAD_ACCEPTANCE_DETERMINATION.md. Accepted implementation 736952de13dfe63e468217e9f3f93cb74950c165; engineering continuity ba0bc63b643c5e8d093bf2b642d44f10997cf500; protected main e7ad3ba499e8bc63d246d38b268251bd6e2b1b77. Both remote heads checked read-only on 2026-11-25. No fresh local runtime inspection or test rerun; revalidate before future execution. M001 historical release completed; M002 not released.
