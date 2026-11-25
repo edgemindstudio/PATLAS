@@ -1,64 +1,61 @@
-# PATLAS — Current Project Handoff
+# PATLAS — Current project handoff
 
 Date: 2026-11-24
+Status basis: Founder decision PATLAS-M001-FA-001 in the project conversation; prepared continuity records must be persisted separately.
 
-## Current status
+## Current controlling status
 
 PROJECT=PATLAS
 PLANNING_BASELINE=v0.6
 CURRENT_MILESTONE=PATLAS-M001
 M001_PLAN_APPROVED=YES
-M001_APPLICATION_IMPLEMENTATION_AUTHORIZED=YES
-M001_IMPLEMENTATION_STATUS=AUTHORIZED_NOT_STARTED
+M001_APPLICATION_IMPLEMENTATION_AUTHORIZED=YES (historical bounded release; completed)
+M001_IMPLEMENTATION_STATUS=ACCEPTED_WITH_DOCUMENTED_EXCEPTIONS
+M001_IMPLEMENTATION_ACCEPTED=YES
+FULL_GAUSSIAN_MODULE_ACCEPTED=NO
+WCAG_CERTIFICATION=NOT_CLAIMED
+MERGE_AUTHORIZED=NO
+REMOTE_CI_AUTHORIZED=NO
+DEPLOYMENT_AUTHORIZED=NO
+M002_AUTHORIZED=NO
 
-## Completed
+Do not restart M001 or interpret the historical execution authorization's AUTHORIZED_NOT_STARTED status as current. No further application work is released.
 
-- Phase 0 project foundation approved.
-- Phase 1 architecture and taxonomy approved.
-- Phase 2 visual product design approved.
-- M001 bounded implementation plan approved.
-- Mac Studio selected and inspected.
-- Node.js 24 LTS installed and verified.
-- Python and development tools verified.
-- GitHub CLI and SSH authentication restored.
-- Repository ownership and visibility approved.
-- Approved v0.6 package verified.
-- Local Git repository initialized.
-- All 34 planning files imported.
+## Repository and immutable anchors
 
-## Final preparation verification
+Repository: edgemindstudio/PATLAS (public); local target /Users/poisedre/PATLAS; branch engineering/m001-foundation.
 
-- Public repository visibility approved and verified.
-- ChatGPT direct GitHub read access verified.
-- Repository metadata, main commit, file inventory,
-  README and continuity documents retrieved.
-- Commit comparison verified.
-- Ebonkie GitHub connection preserved.
-- Preparation checkpoint engineering verification complete.
-- Formal Founder acceptance recorded under PATLAS-M001-REL-001.
+- Historical planning import: 9199d49a4fc84a8272712a28737c53c6bd2bd93f.
+- Preparation checkpoint: fbbf2a574e2dc93c1a56824f2e1aea8c71e6a15c.
+- Protected main at review / M001 release: e7ad3ba499e8bc63d246d38b268251bd6e2b1b77.
+- Original review publication: c9f36ff386c9703836eb21d0f9e10966620f1ac0.
+- Accepted corrected implementation: 736952de13dfe63e468217e9f3f93cb74950c165.
 
-## Next actions
+The acceptance binds to that implementation commit, not to a future documentation commit. Recheck actual remote/local state before further authorized operations. Last publication terminal evidence: clean tree, Actions disabled, zero remote workflow runs, Pages disabled. No merge/deploy.
 
-1. Read M001_EXECUTION_AUTHORIZATION.md.
-2. Execute the bounded M001 prompt on engineering/m001-foundation.
-3. Return implementation evidence for independent Lead review.
+## Completed journey
 
-## Mandatory continuity rules
+Phase 0 foundation, Phase 1 architecture/taxonomy, Phase 2 visual design and bounded M001 v0.6 approved; Mac Studio preparation, Node 24, Python, GitHub authentication, documentation-only repository and 34-file planning import completed. Public repository visibility approved; GitHub read access verified. M001 released under PATLAS-M001-REL-001. Initial implementation published under PATLAS-M001-PUB-001. Lead review identified 13 findings; bounded correction PATLAS-M001-COR-001 released under PATLAS-M001-COR-REL-001; corrected source published under PATLAS-M001-COR-PUB-001. Lead determination PATLAS-M001-LAD-001 recommended exception-based acceptance, now granted by Founder.
 
-Read the current handoff first.
+## Delivered foundation
 
-Historical planning documents remain preserved
-under docs/planning/v0.6/.
+Visual-first, math-second PATLAS learning platform: local Next.js/TypeScript full-stack application, file-backed registry, responsive shell and themes, taxonomy explorer, real server search, honest planned routes, one partial Gaussian reference lesson and SVG lab, reproducible Python export. Production counts 9 major / 32 category / 123 placements / 109 provisional canonical identities; not completed lessons. Frozen registry and historical v0.6 files preserved. Extension test 9/33/124/110; synthetic fixture absent from production as reported. Executor reports 157 passing unique tests (94 Vitest, 58 Playwright, 5 pytest); no reported failures/skips. Lead source/evidence review is not an independent test rerun.
 
-Current records supplement the historical baseline
-without silently changing approved scientific
-scope or architecture.
+## Required reading order
 
-The Founder authorizes project decisions.
-ChatGPT leads architecture, scientific methodology,
-implementation planning and evidence review.
-OpenCode executes bounded implementation tasks.
+1. This current handoff.
+2. M001_FOUNDER_ACCEPTANCE.md — controlling Founder decision.
+3. M001_LEAD_ACCEPTANCE_DETERMINATION.md — basis and scope.
+4. M001_RESIDUAL_ISSUES.md — approved EX-001/EX-002 and open RI-001–004.
+5. M001_CORRECTION_RETURN.md, M001_HUMAN_VERIFICATION.md, M001_CORRECTION_PUBLICATION.md, M001_CORRECTION_AUTHORIZATION.md, M001_IMPLEMENTATION_EVIDENCE.md, M001_REVIEW_PUBLICATION.md, M001_EXECUTION_AUTHORIZATION.md and PREPARATION_CHECKPOINT.md for historical evidence.
+6. docs/planning/v0.6/ for binding project decisions and technical specifications.
 
-The preparation HOLD is superseded only for the
-bounded M001 scope in PATLAS-M001-REL-001.
-No deployment, automatic merge or scope expansion.
+The original handoff remains in Git history at the accepted commit. Earlier records preserve their historical state and must not be rewritten to conceal previous limitations.
+
+## Next authorized direction
+
+Persist acceptance and continuity records only as separately permitted. Then await Founder direction on the next planning decision. Do not assume M002 scope or release, merge main, deploy, enable CI or initiate residual fixes. Additional lessons, full graph, Foundations, Compare and Learning Paths remain planned; full scientific alias reconciliation remains deferred. The project vision is unchanged.
+
+## Continuity rules
+
+Founder authorizes decisions. ChatGPT leads architecture, scientific methodology, implementation planning and evidence review. OpenCode executes bounded implementation tasks, without independent scope or scientific changes. Preserve frozen planning, evidence and historical authorizations; supplement with dated records and exact commit anchors. Future conversations must update the current handoff when authorized decisions change and must distinguish proposed, authorized, executed, verified and accepted states.
